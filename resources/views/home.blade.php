@@ -26,7 +26,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   <link rel="shortcut icon" type="image/x-icon" href="https://wendys.com.ph/images/misc/favicon.ico">
-  <link rel="stylesheet" type="text/css" href="{{asset('vendors/bootstrap/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendors/prettyPhoto/prettyPhoto.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendors/camera/camera.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendors/ui/ui-lightness/jquery-ui-1.10.4.custom.min.css')}}">
@@ -40,7 +40,7 @@
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-  <script type="text/javascript" src="{{asset('js/responsiveslides.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/responsiveslides.js')}}"></script>
   <script src="{{asset('/js/responsiveslides.js')}}"></script>
 
   <!-- JAVASCRIPT FOR DELIVERY PREFERRED BRANCH-->
@@ -541,24 +541,7 @@
     });
   </script>
 
-  <script>
-    (function(i, s, o, g, r, a, m) {
-      i["GoogleAnalyticsObject"] = r;
-      i[r] = i[r]
 
-      function() {
-        (i[r].q = i[r].q[]).push(arguments)
-      }, i[r].l = 1 * new Date();
-      a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0];
-      a.async = 1;
-      a.src = g;
-      m.parentNode.insertBefore(a, m)
-    })(window, document, "script", "//www.google-analytics.com/analytics.js", "ga");
-
-    ga("create", "UA-43044944-1", "wendys.com.ph");
-    ga("send", "pageview");
-  </script>
 </head>
 
 <body>
@@ -856,19 +839,13 @@
   <script type="text/javascript" src="{{asset('vendors/lazyLoad/jquery.lazyload.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/prettyPhoto/jquery.prettyPhoto.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/print-area/jquery.PrintArea.js')}}"></script>
-  <script type="text/javascript" src="{{asset('vendors/ajaxFileUpload/ajaxfileupload.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/ui/jquery-ui-1.10.4.custom.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/ui/jquery.easing.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/camera/jquery.mobile.customized.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/camera/jquery.easing.1.3.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/camera/camera.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/library/library.js')}}"></script>
-  <script type="text/javascript" src="{{asset('js/contacts.js')}}"></script>
-  <script type="text/javascript" src="{{asset('js/news.js')}}"></script>
-  <script type="text/javascript" src="{{asset('js/joblisting.js')}}"></script>
-  <script type="text/javascript" src="{{asset('js/poll.js')}}"></script>
-  <script type="text/javascript" src="{{asset('js/my-account.js')}}"></script>
-  <script type="text/javascript" src="{{asset('js/ecommerce.js')}}"></script>
+
   <script type="text/javascript" src="{{asset('js/script.js')}}"></script>
 
   <iframe id="avdfi_1509538756539" src="javascript:'<html><body style=&quot;background:transparent&quot;></body></html>'" height="0" width="0" marginheight="0" marginwidth="0" frameborder="0" scrolling="no" style="width: 0px; height: 0px; border: 0px none; background: none;"></iframe>
