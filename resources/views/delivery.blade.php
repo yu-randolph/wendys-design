@@ -613,13 +613,13 @@
                 <div id="navigation">
 
                   <ul>
-                    <li><a href="https://wendys.com.ph/home/">Home</a></li>
-                    <li><a href="https://wendys.com.ph/about-us/">About Us</a></li>
-                    <li><a href="https://wendys.com.ph/whats-new/">What's New</a></li>
-                    <li><a href="https://wendys.com.ph/stores/">Stores</a></li>
-                    <li><a href="https://wendys.com.ph/careers/">Careers</a></li>
-                    <li><a href="https://wendys.com.ph/delivery/" class="active">Food Delivery</a></li>
-                    <li><a href="https://wendys.com.ph/contact-us/">Contact Us</a></li>
+                    <li><a href="{{route('home')}}">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">What's New</a></li>
+                    <li><a href="#">Stores</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="{{route('delivery')}}" class="active">Food Delivery</a></li>
+                    <li><a href="#">Contact Us</a></li>
                   </ul>
 
                 </div>

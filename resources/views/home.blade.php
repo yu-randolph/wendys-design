@@ -1,15 +1,6 @@
 <html>
 
 <head>
-  <base href="https://wendys.com.ph/home/">
-  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>-->
-  <script type="text/javascript" async="" src="https://avd.innity.net/lib/dc.js"></script>
-  <script async="" src="//www.google-analytics.com/analytics.js"></script>
-  <script type="text/javascript" async="" src="https://ssl-avd.innity.net/197/container_576385181c51b1f937cb8bde.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
-    < script type = "text/javascript" >
-      var $j = jQuery.noConflict();
-  </script>
   <title>Home | Wendy's</title>
 
   <meta name="Keywords" content="Wendys, hamburger, frosty, salad">
@@ -26,7 +17,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/icons/favicon.ico')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('vendors/bootstrap/css/bootstrap.min.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendors/prettyPhoto/prettyPhoto.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendors/camera/camera.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendors/ui/ui-lightness/jquery-ui-1.10.4.custom.min.css')}}">
@@ -37,8 +28,6 @@
 
   <script type="text/javascript" src="{{asset('vendors/bootstrap/js/html5shiv.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/bootstrap/js/respond.min.js')}}"></script>
-
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
   <script type="text/javascript" src="{{asset('js/responsiveslides.js')}}"></script>
   <script src="{{asset('/js/responsiveslides.js')}}"></script>
@@ -53,13 +42,13 @@
     <div id="navigation" class="animate">
 
       <ul>
-        <li><a href="https://wendys.com.ph/home/" class="active">Home</a></li>
-        <li><a href="https://wendys.com.ph/about-us/">About Us</a></li>
-        <li><a href="https://wendys.com.ph/whats-new/">What's New</a></li>
-        <li><a href="https://wendys.com.ph/stores/">Stores</a></li>
-        <li><a href="https://wendys.com.ph/careers/">Careers</a></li>
-        <li><a href="https://wendys.com.ph/delivery/">Food Delivery</a></li>
-        <li><a href="https://wendys.com.ph/contact-us/">Contact Us</a></li>
+        <li><a href="{{route('home')}}" class="active">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">What's New</a></li>
+        <li><a href="#">Stores</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="{{route('delivery')}}">Food Delivery</a></li>
+        <li><a href="#">Contact Us</a></li>
       </ul>
 
     </div>
@@ -130,13 +119,13 @@
                 <div id="navigation" class="">
 
                   <ul>
-                    <li><a href="https://wendys.com.ph/home/" class="active">Home</a></li>
-                    <li><a href="https://wendys.com.ph/about-us/">About Us</a></li>
-                    <li><a href="https://wendys.com.ph/whats-new/">What's New</a></li>
-                    <li><a href="https://wendys.com.ph/stores/">Stores</a></li>
-                    <li><a href="https://wendys.com.ph/careers/">Careers</a></li>
-                    <li><a href="https://wendys.com.ph/delivery/">Food Delivery</a></li>
-                    <li><a href="https://wendys.com.ph/contact-us/">Contact Us</a></li>
+                    <li><a href="{{route('home')}}" class="active">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">What's New</a></li>
+                    <li><a href="#">Stores</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="{{route('delivery')}}">Food Delivery</a></li>
+                    <li><a href="#">Contact Us</a></li>
                   </ul>
 
                 </div>
