@@ -14,3 +14,6 @@
 Route::get('/' , function () {
     return view('home');
 })->name('home');
+Route::get('/delivery' , function () {
+    return view('delivery');
+})->name('delivery');

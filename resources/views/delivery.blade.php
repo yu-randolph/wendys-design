@@ -1,15 +1,6 @@
 <html>
 
 <head>
-  <base href="https://wendys.com.ph/delivery/">
-  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>-->
-  <script type="text/javascript" async="" src="https://avd.innity.net/lib/dc.js"></script>
-  <script async="" src="//www.google-analytics.com/analytics.js"></script>
-  <script type="text/javascript" async="" src="https://ssl-avd.innity.net/197/container_576385181c51b1f937cb8bde.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
-    < script type = "text/javascript" >
-      var $j = jQuery.noConflict();
-  </script>
   <title>Delivery | Wendy's</title>
 
 
@@ -25,8 +16,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-  <link rel="shortcut icon" type="image/x-icon" href="https://wendys.com.ph/images/misc/favicon.ico">
-  <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
+  <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/icons/favicon.ico')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('vendors/bootstrap/css/bootstrap.min.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendors/prettyPhoto/prettyPhoto.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendors/camera/camera.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('vendors/ui/ui-lightness/jquery-ui-1.10.4.custom.min.css')}}">
@@ -38,10 +29,8 @@
   <script type="text/javascript" src="{{asset('vendors/bootstrap/js/html5shiv.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/bootstrap/js/respond.min.js')}}"></script>
 
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
   <script type="text/javascript" src="{{asset('js/responsiveslides.js')}}"></script>
-  <script src="{{asset('/js/responsiveslides.js')}}"></script>
+  <script src="{{asset('js/responsiveslides.js')}}"></script>
 
   <!-- JAVASCRIPT FOR DELIVERY PREFERRED BRANCH-->
 
@@ -542,23 +531,6 @@
     });
   </script>
 
-  <script>
-    (function(i, s, o, g, r, a, m) {
-      i["GoogleAnalyticsObject"] = r;
-      i[r] = i[r]
-      function() {
-        (i[r].q = i[r].q[]).push(arguments)
-      }, i[r].l = 1 * new Date();
-      a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0];
-      a.async = 1;
-      a.src = g;
-      m.parentNode.insertBefore(a, m)
-    })(window, document, "script", "//www.google-analytics.com/analytics.js", "ga");
-
-    ga("create", "UA-43044944-1", "wendys.com.ph");
-    ga("send", "pageview");
-  </script>
 </head>
 
 <body>
@@ -570,13 +542,13 @@
     <div id="navigation">
 
       <ul>
-        <li><a href="https://wendys.com.ph/home/">Home</a></li>
-        <li><a href="https://wendys.com.ph/about-us/">About Us</a></li>
-        <li><a href="https://wendys.com.ph/whats-new/">What's New</a></li>
-        <li><a href="https://wendys.com.ph/stores/">Stores</a></li>
-        <li><a href="https://wendys.com.ph/careers/">Careers</a></li>
-        <li><a href="https://wendys.com.ph/delivery/" class="active">Food Delivery</a></li>
-        <li><a href="https://wendys.com.ph/contact-us/">Contact Us</a></li>
+        <li><a href="{{route('home')}}">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">What's New</a></li>
+        <li><a href="#">Stores</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="{{route('delivery')}}" class="active">Food Delivery</a></li>
+        <li><a href="#">Contact Us</a></li>
       </ul>
 
     </div>
@@ -593,10 +565,10 @@
     <div id="app-g">
       <p style="color:#ffffff;">Wendy's app Available on</p>
       <a href="https://play.google.com/store/apps/details?id=com.ivant.wendys&amp;hl=en">
-        <img class="badge-g" src="https://wendys.com.ph/images/play_app_badge.png">
+        <img class="badge-g" src="{{asset('images/play_app_badge.png')}}">
     </a>
       <a href="https://itunes.apple.com/us/app/wendys-ph/id1011641436?ls=1&amp;mt=8">
-        <img class="badge-g" src="https://wendys.com.ph/images/ios_app_badge.png">
+        <img class="badge-g" src="{{asset('images/ios_app_badge.png')}}">
     </a>
     </div>
     <!-- gcodeEnd -->
@@ -612,7 +584,7 @@
 
               <div id="logo">
                 <a href="https://wendys.com.ph/home/">
-                                <img src="https://wendys.com.ph/images/misc/logo.png" alt="Wendy's Logo">
+                                <img src="{{asset('images/misc/logo.png')}}" alt="Wendy's Logo">
                             </a>
               </div>
 
@@ -838,7 +810,7 @@
 </strong></strong>
   </div><strong><strong>
 
-  <script type="text/javascript" src="{{asset('js/jquery-1.9.1.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/bootstrap/js/bootstrap.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/lazyLoad/jquery.lazyload.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/prettyPhoto/jquery.prettyPhoto.js')}}"></script>
@@ -849,7 +821,7 @@
   <script type="text/javascript" src="{{asset('vendors/camera/jquery.easing.1.3.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/camera/camera.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/library/library.js')}}"></script>
-  <script type="text/javascript" src="{{asset('js/script.js')}}"></script>
+  <script type="text/javascript" src="{{asset('vendors/bootstrap/js/html5shiv.js')}}"></script>
 
 </strong></strong><iframe id="avdfi_1509541953903" src="javascript:'<html><body style=&quot;background:transparent&quot;></body></html>'" height="0" width="0" marginheight="0" marginwidth="0" frameborder="0" scrolling="no" style="width: 0px; height: 0px; border: 0px none; background: none;"></iframe>
 </body>
