@@ -1,0 +1,1067 @@
+<html><head><base href="https://wendys.com.ph/output/step-2/">
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>-->
+<script type="text/javascript" async="" src="https://avd.innity.net/lib/dc.js"></script><script async="" src="//www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://ssl-avd.innity.net/197/container_576385181c51b1f937cb8bde.js"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+<script type="text/javascript"> var $j = jQuery.noConflict();</script>
+<title>Step 2 | Wendy's</title>
+<meta name="author" content="Wendy's">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="1 days">
+<meta name="rating" content="general">
+<meta http-equiv="distribution" content="global">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://wendys.com.ph/images/misc/favicon.ico">
+<link rel="stylesheet" type="text/css" href="https://wendys.com.ph/plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://wendys.com.ph/plugins/prettyPhoto/prettyPhoto.css">
+<link rel="stylesheet" type="text/css" href="https://wendys.com.ph/plugins/camera/camera.css">
+<link rel="stylesheet" type="text/css" href="https://wendys.com.ph/plugins/ui/ui-lightness/jquery-ui-1.10.4.custom.min.css">
+<link rel="stylesheet" type="text/css" href="https://wendys.com.ph/plugins/library/library.css">
+<link rel="stylesheet" type="text/css" href="https://wendys.com.ph/css/style.css?v=2">
+
+<link rel="stylesheet" type="text/css" href="https://wendys.com.ph/plugins/ui/jquery-ui.css">
+
+<script type="text/javascript" src="https://wendys.com.ph/plugins/bootstrap/js/html5shiv.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/plugins/bootstrap/js/respond.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="https://wendys.com.ph/js/responsiveslides.min.js"></script>
+<script src="https://wendys.com.ph/js/responsiveslides.js"></script>
+
+<!-- JAVASCRIPT FOR DELIVERY PREFERRED BRANCH-->
+
+<script type="text/javascript">
+
+jQuery(document).ready(function() {
+/*  John Paul Cas */
+    var indicator = false;
+    var isValid = false;
+
+    function showMessage() {
+    // this is a test
+        alert("Opps something great will happen");
+    }
+
+    function same() {
+
+        var ul = document.getElementById("branches");
+        var items = ul.getElementsByTagName("li");
+
+        var prevcity = document.getElementById("previousCity").getAttribute("data-previous-city");
+
+        for (var i = 0; i < items.length; i++) {
+            items[i].style.display = "block";
+            if (items[i].getAttribute("data-city-id") != prevcity){
+                items[i].style.display= "none";
+            }
+        }
+
+    }
+
+    function newCity() { // new is a reserve word
+        var ul = document.getElementById("branches");
+        var items = ul.getElementsByTagName("li");
+
+        var sel = document.getElementById("city");
+        var cityId = sel.options[sel.selectedIndex].getAttribute("data-city-id");
+        var count = 0;
+
+        for (var i = 0; i < items.length; i++) {
+                items[i].style.display = "block";
+            if (items[i].getAttribute("data-city-id") != cityId){
+                items[i].style.display = "none";
+                count++;
+            }
+        }
+
+        if (count == items.length)
+            emptyDataModalDisplaySetting();
+        else
+            document.getElementById("head").innerHTML = "Please select preferred store <br>to continue.";
+    }
+
+  $('#sameAddress').click(function() {
+        dataModalDisplaySetting();
+  });
+
+   /*$('#checkbox_div input[type="radio"]').click(function() {
+  alert("clicked") ;
+ });*/
+
+   /* $("#city").click(newCity); v1 */
+   $("#city").change(newCity);
+
+   $("#submitBrachForm").click(function() {
+
+        var orderHour     = $("#hourOrder");
+        var orderMinute   = $("#minuteOrder");
+        var meridiemOrder = $("#meridiemOrder");
+
+        var checkItem = $("input[name='preferredStore']:checked");
+        var branchOpening = parseInt(checkItem.attr("data-branch-opening"));
+        var branchOpeningMinute = parseInt(checkItem.attr("data-branch-opening-minute"));
+        var branchClosing = parseInt(checkItem.attr("data-branch-closing"));
+        var branchClosingMinute = parseInt(checkItem.attr("data-branch-closing-minute"));
+        var branchOpeningMeridiem = checkItem.attr("data-branch-opening-meridiem");
+        var branchClosingMeridiem = checkItem.attr("data-branch-closing-meridiem");
+        var branchName = checkItem.val();
+
+        if (isEmptyField(checkItem)) {
+            alert("You need to select store");
+            return false;
+        }
+        else {
+            if (!isImmediateDeliver()) {
+            // this algorithm is design only if the opening meridiem is AM and closing meridiam is PM
+                if (meridiemOrder.val() == 'AM') {
+                    if (branchOpening == 12) {
+                        // check if the branch opening is 12pm
+                        if ((parseInt(orderHour.val()) == branchOpening || (parseInt(orderHour.val()) > (branchOpening/12) && parseInt(orderHour.val()) < 12)) ) {
+                            // send the form
+                            $("#stepTwoSubmitForm").submit();
+                            $("#cityBranchListModal").modal().hide();
+                        }
+                        else {
+                            // show error notification here
+                            alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm in " + branchName + " Branch.");
+                        }
+
+                    }
+                    else {
+
+                        if ((parseInt(orderHour.val())) >= branchOpening) {
+                             $("#stepTwoSubmitForm").submit();
+                             $("#cityBranchListModal").modal().hide();
+
+                        }
+                        else {
+                            // show some error notification here
+                            alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm in " + branchName + " Branch.");
+                        }
+                    }
+                }
+                else {
+                    if (branchClosing == 12) {
+                        if ((parseInt(orderHour.val())) == branchClosing) {
+                            if (parseInt(orderMinute.val()) <= (branchClosingMinute-30)) {
+                                $("#stepTwoSubmitForm").submit();
+                                $("#cityBranchListModal").modal().hide();
+
+                            }
+                            else {
+                               alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to "    + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm and 30 minutes before " + branchName + " Branch closing time.");
+                            }
+
+                        }
+                        else {
+                            alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm in " + branchName + " Branch.");
+                        }
+                    }
+                    else {
+                        var orderHours = parseInt(orderHour.val());
+                        var orderMenutes = parseInt(orderMinute.val());
+                        var branchClosingHour = branchClosing;
+                        var branchClosingMinuteTemp = branchClosingMinute;
+
+                        if (orderMinute.val() > (branchClosingMinute-30)) {
+                            branchClosingHour = branchClosingHour - 1;
+                            branchClosingMinuteTemp = (branchClosingMinuteTemp+60);
+                        }
+
+                        if (orderHours == branchClosingHour && orderMinute.val() <= (branchClosingMinuteTemp-30)) {
+                            $("#stepTwoSubmitForm").submit();
+                            $("#cityBranchListModal").modal().hide();
+
+                        }
+                        else if (orderHours < branchClosingHour) {
+                            $("#stepTwoSubmitForm").submit();
+                            $("#cityBranchListModal").modal().hide();
+
+                        }
+                        else {
+                            alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to "    + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm and 30 minutes before " + branchName + " Branch closing time.");
+                        }
+                    }
+                }
+            } else {
+
+                var date = new Date();
+
+                var orderHours = date.getHours();
+                var orderMinutes = date.getMinutes();
+                var meridiem = date.getHours() > 11 ? 'PM' : 'AM';
+
+
+
+                if (meridiem == 'AM') {
+                    if (branchOpening == 12) {
+                        // check if the branch opening is 12pm
+                        if ((orderHours == branchOpening || (orderHours > (branchOpening/12) && orderHours < 12)) ) {
+                            // send the form
+                            $("#stepTwoSubmitForm").submit();
+                            $("#cityBranchListModal").modal().hide();
+                        }
+                        else {
+                            // show error notification here
+                            alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm in " + branchName + " Branch.");
+                        }
+
+                    }
+                    else {
+                        if (orderHours >= branchOpening) {
+                             $("#stepTwoSubmitForm").submit();
+                             $("#cityBranchListModal").modal().hide();
+
+                        }
+                        else {
+                            // show some error notification here
+                            alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm in " + branchName + " Branch.");
+                        }
+                    }
+                }
+                else {
+                    // PM code here
+                    if (branchClosing == 12) {
+                        if (orderHours == branchClosing) {
+                            if (orderMinutes <= (branchClosingMinute-30)) {
+                                $("#stepTwoSubmitForm").submit();
+                                $("#cityBranchListModal").modal().hide();
+
+                            }
+                            else {
+                               alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to "    + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm and 30 minutes before " + branchName + " Branch closing time.");
+                            }
+
+                        }
+                        else {
+                            alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm in " + branchName + " Branch.");
+                        }
+                    }
+                    else {
+
+                        var branchClosingHour = branchClosing;
+                        var branchClosingMinuteTemp = branchClosingMinute;
+                        var orderHourz = (orderHours-12);
+
+                        if (orderMinutes > (branchClosingMinute-30)) {
+                            branchClosingHour = branchClosingHour - 1;
+                            branchClosingMinuteTemp = (branchClosingMinuteTemp+60);
+                        }
+
+                        if (orderHourz == branchClosingHour && orderMinutes <= (branchClosingMinuteTemp-30)) {
+                            $("#stepTwoSubmitForm").submit();
+                            $("#cityBranchListModal").modal().hide();
+
+                        }
+                        else if (orderHourz < branchClosingHour) {
+                            $("#stepTwoSubmitForm").submit();
+                            $("#cityBranchListModal").modal().hide();
+
+                        }
+                        else {
+                            alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to "    + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm and 30 minutes before " + branchName + " Branch closing time.");
+                        }
+                    }
+
+                }/*
+
+                $("#stepTwoSubmitForm").submit();
+                $("#cityBranchListModal").modal().hide();*/
+            }
+        }
+   });
+
+   // validate new order information
+   $("#btnValidateNewInformation").click(function() {
+
+
+        var city                  = $("#city");
+        var newOrderFirstName     = $("#newOrderFirstName");
+        var newOrderLastName      = $("#newOrderLastName");
+        var newOrderAddress1      = $("#newOrderAddress1");
+        var newOrderStreetAddress = $("#newOrderStreetAddress");
+        var newOrderAddress3      = $("#newOrderAddress3");
+        var newOrderCountry       = $("#newOrderCountry");
+        var newOrderProvince      = $("#newOrderProvince");
+        var newOrderContactNumber = $("#newOrderContactNumber");
+        var storeDineinForPickup = $("#storeDineinForPickup");
+
+        var orderDate   = $("#date");
+        var orderHour   = $("#hourOrder");
+        var orderMinute = $("#minuteOrder");
+        var meridiemOrder = $("#meridiemOrder");
+
+        var errorMessage = "Please fill up the following field below";
+
+        /*else if (isFieldEmptyAndEnabled(newOrderFirstName)
+                || isFieldEmptyAndEnabled(newOrderLastName) || isFieldEmptyAndEnabled(newOrderAddress1)
+                || isFieldEmptyAndEnabled(newOrderStreetAddress || isFieldEmptyAndEnabled(newOrderAddress3)
+                || isFieldEmptyAndEnabled(newOrderCountry) || isFieldEmptyAndEnabled(newOrderProvince)
+                || isFieldEmptyAndEnabled(city) || isFieldEmptyAndEnabled(newOrderContactNumber))) */
+        if(!isDineinOrForPickup()) {
+
+            if (!isSameAsBillingCheck()) {
+                newCity();
+            }  else {
+                same();
+            }
+
+            if (!isSameAsBillingCheck()) {
+
+                /* remove all error field */
+                removeFieldError(newOrderFirstName, newOrderLastName, newOrderAddress1,
+                                 newOrderStreetAddress, newOrderAddress3, newOrderProvince, newOrderCountry,
+                                 city, newOrderContactNumber);
+
+                setIndicator(false);
+
+                if (isEmptyField(newOrderFirstName)) {
+                    errorMessage +="\n First Name";
+                    showErrorField(newOrderFirstName);
+                }
+
+                if (isEmptyField(newOrderLastName)) {
+                    errorMessage +="\n Last Name";
+                    showErrorField(newOrderLastName);
+                }
+
+                if (isEmptyField(newOrderAddress1)) {
+                    errorMessage +="\n Floor/ Dept. / Building";
+                    showErrorField(newOrderAddress1);
+                }
+
+                if (isEmptyField(newOrderStreetAddress)) {
+                    errorMessage +="\n Street";
+                    showErrorField(newOrderStreetAddress);
+                }
+
+                if (isEmptyField(newOrderAddress3)) {
+                    errorMessage +="\n Area / Subdivision / Barangay / District";
+                    showErrorField(newOrderAddress3);
+                }
+
+                if (isEmptyField(newOrderCountry)) {
+                    errorMessage +="\n Country";
+                    showErrorField(newOrderCountry);
+                }
+
+                if (isEmptyField(newOrderProvince)) {
+                    errorMessage +="\n Province";
+                    showErrorField(newOrderProvince);
+                }
+
+                if (isEmptyField(city)) {
+                    errorMessage +="\n City";
+                    showErrorField(city);
+                }
+
+                if (isEmptyField(newOrderContactNumber)) {
+                    errorMessage +="\n Contact Number";
+                    showErrorField(newOrderContactNumber);
+                }
+
+                if (!isImmediateDeliver()) {
+                    if (isEmptyField(orderDate) || isEmptyField(orderHour) || isEmptyField(orderMinute)) {
+                            showErrorField(orderDate);
+                    }
+                    else {
+                        removeErrorField(orderDate);
+                        if (!getIndicator())
+                            $("#cityBranchListModal").modal();
+                    }
+                } else {
+                    if (!getIndicator()) {
+                        $("#cityBranchListModal").modal();
+                    } else {
+                        alert(errorMessage);
+                    }
+                }
+                /*if (!getIndicator()) {
+                        $("#cityBranchListModal").modal();
+                } */
+
+            } else {
+                if (!isImmediateDeliver()) {
+
+                    if (isEmptyField(orderDate) || isEmptyField(orderHour) || isEmptyField(orderMinute)) {
+                            showErrorField(orderDate);
+                    }
+                    else {
+                            $("#cityBranchListModal").modal();
+                    }
+
+                }
+                else {
+                    $("#cityBranchListModal").modal();
+                }
+
+            }
+        } else {
+
+            removeErrorField(orderDate);
+            removeErrorField(storeDineinForPickup);
+
+            isValid = true;
+            // validator if Dine-in/For Pick up is checked
+             if (isEmptyField(orderDate) || isEmptyField(orderHour) || isEmptyField(orderMinute)) {
+                            showErrorField(orderDate);
+                            isValid = false;
+             }
+
+             if (isEmptyField(storeDineinForPickup)) {
+                            showErrorField(storeDineinForPickup);
+                            isValid = false;
+             }
+
+             if (isValid == true) {
+                $("#stepTwoSubmitForm").submit();
+             } else {
+                alert("field is required");
+             }
+        }
+
+        /*else {
+
+            alert("item is immediateDeliver");
+            // $("#cityBranchListModal").modal(); // show modal
+        }*/
+
+   });
+
+   $("#btnCloseDialog").click(function() {
+        // get back the settin when button was click
+        dataModalDisplaySetting();
+   });
+
+   function dataModalDisplaySetting() {
+        document.getElementById("modal-content-body").style.visibility = "visible";
+        document.getElementById("submitBrachForm").style.visibility = "visible";
+        document.getElementById("modal-content-body").style.height = "300px";
+        document.getElementById("btnCloseDialog").value = "Close";
+   }
+
+   function emptyDataModalDisplaySetting() {
+        document.getElementById("modal-content-body").style.visibility = "hidden";
+        document.getElementById("submitBrachForm").style.visibility = "hidden";
+        document.getElementById("modal-content-body").style.height = "35px";
+        document.getElementById("btnCloseDialog").value = "Ok";
+        document.getElementById("head").innerHTML = "Sorry, there's no available Wendy's <br> delivery store near you.";
+   }
+
+   function removeFieldError(newOrderFirstName, newOrderLastName, newOrderAddress1, newOrderStreetAddress, newOrderAddress3, newOrderProvince, newOrderCountry, city, newOrderContactNumber) {
+        // remove all error field before checking
+        removeErrorField(newOrderFirstName);
+        removeErrorField(newOrderLastName);
+        removeErrorField(newOrderAddress1);
+        removeErrorField(newOrderAddress3);
+        removeErrorField(newOrderStreetAddress);
+        removeErrorField(newOrderProvince);
+        removeErrorField(newOrderCountry);
+        removeErrorField(city);
+        removeErrorField(newOrderContactNumber);
+   }
+
+
+   function isFieldEmptyAndEnabled(elementVar) {
+        if (!isDisabledField(elementVar) || isEmptyField(elementVar)) {
+            return true;
+        }
+
+        return false;
+   }
+
+   function isImmediateDeliver() {
+        /*check if immediate delivery is checked, if checked return true otherwise false*/
+        if ($('#immediateDeliver').is(':checked')) {
+            $('#immediateDeliver').closest('.form-group').removeClass('has-error');
+            return true;
+        }
+
+        return false;
+   }
+
+   function isDineinOrForPickup() {
+        if ($('#dineInForPickUp').is(':checked')) {
+            return true;
+        }
+
+        return false;
+   }
+
+   function isSameAsBillingCheck() {
+        if ($("#sameAddress").is(":checked")) {
+            return true;
+        }
+
+        return false;
+   }
+
+   function isDisabledField(elementVar) {
+        /*checked if the element pass is disabled or not, if field is disabled return true otherwise false*/
+        if (elementVar.is(":disabled")) {
+            return true;
+        }
+
+        return false;
+   }
+
+   function formatStringNumber(number) {
+        // format the string to make it look like two decimal number
+        if (number.toString().length > 1 )
+            return number;
+
+        return '0'+number;
+   }
+
+   function showErrorField(elementVar) {
+         /* mark field as error field */
+        setIndicator(true);
+        elementVar.closest('.form-group').removeClass('has-success').addClass('has-error');
+   }
+
+   function removeErrorField(elementVar) {
+        /*remove error field*/
+        elementVar.closest('.form-group').removeClass('has-error');
+   }
+
+   function isEmptyField(elementVar) {
+        /* check if the element field is empty or not, if field is empty return true else return false*/
+        if ($.trim(elementVar.val()).length <= 0 || elementVar.val() === 'undefined' || elementVar.val() == '' || elementVar.val == null ) {
+            setIndicator(true);
+            return true;
+        }
+
+        return false;
+   }
+
+   function setIndicator(indicator) {
+        this.indicator = indicator;
+   }
+
+   function getIndicator() {
+        return this.indicator;
+   }
+
+});
+
+
+
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]function(){
+  (i[r].q=i[r].q[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,"script","//www.google-analytics.com/analytics.js","ga");
+
+  ga("create", "UA-43044944-1", "wendys.com.ph");
+  ga("send", "pageview");
+
+</script></head>
+<body><div id="backToTop" class="formTooltip" title="" data-original-title="Back to Top"></div>
+
+
+
+<div id="sideNavigation" class="hidden-lg hidden-md">
+	<div class="shadow"></div>
+<div id="navigation">
+
+                                                                <ul>
+                                    <li><a href="https://wendys.com.ph/home/">Home</a></li>
+                                    <li><a href="https://wendys.com.ph/about-us/">About Us</a></li>
+                                    <li><a href="https://wendys.com.ph/whats-new/">What's New</a></li>
+                                    <li><a href="https://wendys.com.ph/stores/">Stores</a></li>
+                                    <li><a href="https://wendys.com.ph/careers/">Careers</a></li>
+                                    <li><a href="https://wendys.com.ph/delivery/">Food Delivery</a></li>
+                                    <li><a href="https://wendys.com.ph/contact-us/">Contact Us</a></li>
+                                </ul>
+
+                            </div></div><div id="banner" style="width: 100%; height: 50%;">
+
+	<div id="subBanner" data-image="https://wendys.com.ph/images/subbanner/wendys.jpg" style="background: url(&quot;https://wendys.com.ph/images/subbanner/wendys.jpg&quot;) center center / cover;"></div>
+</div>
+
+
+<div class="clear"></div>
+<div id="wrapper">
+<!-- gcodeStart 1.18.16 -->
+<div id="app-g">
+    <p style="color:#ffffff;">Wendy's app Available on</p>
+    <a href="https://play.google.com/store/apps/details?id=com.ivant.wendys&amp;hl=en">
+        <img class="badge-g" src="https://wendys.com.ph/images/play_app_badge.png">
+    </a>
+    <a href="https://itunes.apple.com/us/app/wendys-ph/id1011641436?ls=1&amp;mt=8">
+        <img class="badge-g" src="https://wendys.com.ph/images/ios_app_badge.png">
+    </a>
+</div>
+<!-- gcodeEnd -->
+    <div id="header" style="height:124px;">
+
+        <div id="pattern">
+
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-md-3 col-xs-6">
+
+                        <div id="logo">
+                            <a href="https://wendys.com.ph/home/">
+                                <img src="https://wendys.com.ph/images/misc/logo.png" alt="Wendy's Logo">
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-9 col-xs-6">
+
+                        <div class="text-right marginTop">
+
+                            <div class="colorRed">Philippine local time</div>
+                            <div class="time">09:28pm | Nov 3, 2017</div>
+
+                        </div>
+
+                        <div id="navToggle" class="navbar-header">
+                            <button type="button" class="navbar-toggle">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <div class="hidden-sm hidden-xs">
+
+                            <div id="navigation">
+
+                                                                <ul>
+                                    <li><a href="https://wendys.com.ph/home/">Home</a></li>
+                                    <li><a href="https://wendys.com.ph/about-us/">About Us</a></li>
+                                    <li><a href="https://wendys.com.ph/whats-new/">What's New</a></li>
+                                    <li><a href="https://wendys.com.ph/stores/">Stores</a></li>
+                                    <li><a href="https://wendys.com.ph/careers/">Careers</a></li>
+                                    <li><a href="https://wendys.com.ph/delivery/">Food Delivery</a></li>
+                                    <li><a href="https://wendys.com.ph/contact-us/">Contact Us</a></li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+	<div id="content">
+
+	<div class="container">
+
+		<div class="row">
+
+    <ul id="steps">
+        <li class="col-xs-3">
+            <div class="row">
+                <div class="col-xs-3">
+                    <span>1</span>
+                </div>
+                <div class="col-xs-9">
+                    billing info
+                </div>
+            </div>
+        </li>
+
+        <li class="col-xs-3 active">
+            <div class="row">
+                <div class="col-xs-3">
+                    <span>2</span>
+                </div>
+                <div class="col-xs-9">
+                    delivery info
+                </div>
+            </div>
+        </li>
+
+        <li class="col-xs-3">
+            <div class="row">
+                <div class="col-xs-3">
+                    <span>3</span>
+                </div>
+                <div class="col-xs-9">
+                    payment option
+                </div>
+            </div>
+        </li>
+
+        <li class="col-xs-3">
+            <div class="row">
+                <div class="col-xs-3">
+                    <span>4</span>
+                </div>
+                <div class="col-xs-9">
+                    review order
+                </div>
+            </div>
+        </li>
+    </ul>
+
+</div>
+
+<div class="row">
+
+	<div class="col-md-3 col-md-push-9">
+
+
+<p style="text-align: center;"><img alt="" height="" src="https://wendys.com.ph/file-manager/images/WENDYS%20PULLEDPORK%20POSTER%20FA%20FEBRUARY20.jpg" width=""></p>
+
+<p style="text-align: center;">&nbsp;</p>
+
+<p style="text-align: center;">&nbsp;</p>
+
+<p style="text-align: center;">&nbsp;</p>
+
+<p style="text-align: center;">&nbsp;</p>
+
+    </div>
+
+	<div class="col-md-9 col-md-pull-3">
+
+    	<p class="hidden-sm hidden-xs">&nbsp;</p>
+    	<p class="hidden-sm hidden-xs">&nbsp;</p>
+        <!-- <div class="info alert alert-info">Note: Wendy's delivery only accept orders from 8am to 12mn (based on the current local date and time in the Philippines).</div> -->
+    	<form method="post" id="stepTwoSubmitForm" action="https://wendys.com.ph/output/step-3/" role="form" class="formPreloader form-horizontal">
+
+            <div class="form-group">
+            	<label class="col-sm-4 control-label">Delivery Date / Time</label>
+            	<div class="col-sm-8">
+              		<p class="form-control-static">Today (Fri, November 3, 2017 Philippine local date &amp; time) delivery time will depend on your location and will start upon receipt of a confirmation call from the Wendy's branch.</p>
+            	</div>
+          	</div>
+
+                                <div class="form-group">
+                        <label class="col-sm-4 control-label">Delivery Address</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">
+                            	                                <label class="marginRight radio"><div class="checked"></div><input type="radio" id="sameAddress" class="recipientsInformation" name="recipientsInformation" value="same" checked=""> Same As Billing</label>
+                                                                <label class="radio"><div></div><input type="radio" class="recipientsInformation" name="recipientsInformation" value="new"> New Address</label>
+                            </p>
+                        </div>
+                    </div>
+
+            <p>&nbsp;</p>
+
+            <div class="info alert alert-info">Note: * is a required field</div>
+            <div class="form-group">
+            	<label class="col-sm-4 control-label">* Order Type</label>
+            	<div class="col-sm-8">
+              		<p class="form-control-static">
+                    	<label class="marginRight radio"><div class="checked"></div><input type="radio" class="receivingType" name="receivingType" value="Delivery" checked=""> Delivery</label>
+                    	<label class="radio"><div></div><input type="radio" name="receivingType" id="dineInForPickUp" value="Dine-in / For Pick-up"> Dine-in / For Pick-up</label>
+                    </p>
+            	</div>
+            </div>
+            <div class="form-group store displayNone">
+            	<label class="col-sm-4 control-label">* Find a Store</label>
+            	<div class="col-sm-8">
+              		<select name="store" id="storeDineinForPickup" class="form-control">
+                    	<option value="">-- Select --</option>
+                        <option value="68">6789 Ayala Tower</option><option value="49">Boni Ave.</option><option value="66">Bonifacio Stopover</option><option value="57">Buendia</option><option value="41">Dapitan</option><option value="22">Fairview Terraces</option><option value="43">Gateway</option><option value="50">Glorietta 3</option><option value="51">Glorietta 4</option><option value="30">Grandmall</option><option value="53">Greenbelt 1</option><option value="34">Greenhills</option><option value="29">Hanston (Ortigas)</option><option value="36">Kalaw</option><option value="67">Landmark Trinoma Complex</option><option value="52">Makati Ave</option><option value="62">Market Market</option><option value="23">NAIA 3 (Departure &amp; Arrival Area)</option><option value="38">PGH - Taft</option><option value="25">Portal</option><option value="59">Puregold Anabu</option><option value="39">Robinson's Place Ermita</option><option value="26">S&amp;R Shaw Boulevard</option><option value="48">Shangri-La</option><option value="74">Shell NLEX Mexico</option><option value="45">Shopwise Cubao</option><option value="42">SM Annex</option><option value="61">SM Bacoor</option><option value="47">SM Centerpoint</option><option value="70">SM City North Edsa</option><option value="24">SM Clark</option><option value="60">SM Dasmariñas</option><option value="44">SM Fairview</option><option value="28">SM Jazz</option><option value="65">SM Light Mall</option><option value="56">SM Mall Of Asia</option><option value="37">SM Manila</option><option value="63">SM Marikina</option><option value="33">SM Marilao</option><option value="32">SM Megamall</option><option value="40">SM San Lazaro</option><option value="58">Starmall Alabang</option><option value="46">Trinoma</option><option value="72">Wendy's Citywalk Eastwood</option><option value="73">Wendy's Clark Airmall</option>                    </select>
+            	</div>
+            </div>
+            <div class="form-group">
+            	<label class="col-sm-4 control-label">* Preferred Date and Time</label>
+            	<div class="col-sm-8">
+                	<p class="form-control-static"><label class="checkbox"><div></div><input type="checkbox" id="immediateDeliver" value="immediate" name="immediate"> Immediate Delivery</label></p>
+                    <div class="clearfix"></div>
+
+                	<div class="row preferredDateAndTime">
+	              		<div class="col-sm-4">
+                        	<input type="text" class="form-control datepicker required hasDatepicker" name="date" id="date" placeholder="Date" value="" autocomplete="off">
+                        </div>
+                    	<div class="clearfix marginBottom"></div>
+                        <div class="col-xs-4">
+                        	<select name="hour" id="hourOrder" class="form-control required">
+                            	<option value="">-- Hour --</option>
+                                <option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                        	<select name="minute" id="minuteOrder" class="form-control required">
+                            	<option value="">-- Minute --</option>
+                                <option value="15">15</option>
+                                <option value="30">30</option>
+                                <option value="45">45</option>
+                                                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                        	<select name="meridiem" id="meridiemOrder" class="form-control">
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                            </select>
+                        </div>
+                    </div>
+            	</div>
+            </div>
+            <div class="delivery displayNone">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">* First Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" id="newOrderFirstName" class="form-control required" value="Randolph" name="firstName" disabled="" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Middle Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" id="newOrderMiddleName" class="form-control" value="Malveda" name="middleName" disabled="" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">* Last Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" id="newOrderLastName" class="form-control required" value="Yu" name="lastName" disabled="" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">* Floor / Dept. / Building</label>
+                    <div class="col-sm-8">
+                        <input type="text" id="newOrderAddress1" class="form-control required" value="162" name="address1" disabled="" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">* Street</label>
+                    <div class="col-sm-8">
+                        <input type="text" id="newOrderStreetAddress" class="form-control required" value="Sarangani St." name="address2" disabled="" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">* Area / Subdivision / Barangay / District</label>
+                    <div class="col-sm-8">
+                        <input type="text" id="newOrderAddress3" class="form-control required" value="Ayala Alabang Village" name="address3" disabled="" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">* Country</label>
+                    <div class="col-sm-8">
+                        <select class="form-control required" id="newOrderCountry" name="country" disabled="">
+                            <option value="czozOiIxNjMiOw==" selected="">Philippines</option>                        </select>
+                    </div>
+                </div>
+                <div class="form-group philippines">
+                    <label class="control-label col-sm-4">* Province</label>
+                    <div class="col-sm-8">
+                        <select id="newOrderProvince" class="form-control required" name="province" disabled="">
+                            <option value="czoxOiIxIjs=" selected="">Metro Manila</option>                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group philippines">
+                    <label class="control-label col-sm-4">* City</label>
+                    <div class="col-sm-8">
+                        <select id="city" class="form-control required" name="city" disabled="">
+                            <option value="">-- Select --</option>
+                            <option data-city-id="1" value="czoxOiIxIjs=">Caloocan</option><option data-city-id="2" value="czoxOiIyIjs=">Las Piñas</option><option data-city-id="3" value="czoxOiIzIjs=">Makati</option><option data-city-id="4" value="czoxOiI0Ijs=">Malabon</option><option data-city-id="5" value="czoxOiI1Ijs=">Mandaluyong</option><option data-city-id="1607" value="czo0OiIxNjA3Ijs=">Manila</option><option data-city-id="6" value="czoxOiI2Ijs=">Marikina</option><option data-city-id="7" value="czoxOiI3Ijs=" selected="">Muntinlupa</option><option data-city-id="8" value="czoxOiI4Ijs=">Navotas</option><option data-city-id="9" value="czoxOiI5Ijs=">Parañaque</option><option data-city-id="10" value="czoyOiIxMCI7">Pasay</option><option data-city-id="11" value="czoyOiIxMSI7">Pasig</option><option data-city-id="12" value="czoyOiIxMiI7">Pateros</option><option data-city-id="13" value="czoyOiIxMyI7">Quezon City</option><option data-city-id="14" value="czoyOiIxNCI7">San Juan</option><option data-city-id="15" value="czoyOiIxNSI7">Taguig</option><option data-city-id="16" value="czoyOiIxNiI7">Valenzuela</option>                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">* Contact No.</label>
+                    <div class="col-sm-8">
+                        <input type="text" id="newOrderContactNumber" class="form-control required digits" value="09178955038" name="contactNumber" disabled="" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Special Instructions / Landmarks</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" name="specialInstructions"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+            	<div class="col-sm-12 text-right">
+                	<button type="button" class="btn btn-warning" onclick="this.form.action='https://wendys.com.ph/output/step-1';submit();">
+                    	Previous
+                    </button>
+              		<button type="button" class="btn btn-warning" id="btnValidateNewInformation" <!--="" data-toggle="modal" data-target="#myModal" --="">&gt;
+                    	Continue
+                    </button>
+                    <button type="button" class="btn btn-warning" onclick="location.href='https://wendys.com.ph/delivery/'">
+                    	Cancel Order
+                    </button>
+            	</div>
+          	</div>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="cityBranchListModal" role="dialog">
+                <div class="modal-dialog" style="width:400px">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 style="text-align:center" id="head">Please select preferred store <br>to continue.</h3></div>
+                                    <div class="modal-body" style="text-align:center">
+                                        <div id="modal-content-body" class="form-control-static" style="margin-bottom:15px;text-align:left;font-size:17px;height:300px;overflow-y:scroll;width:100%">
+                            <ul id="branches" style="padding:0">
+                                <input id="previousCity" type="hidden" data-previous-city="7"><li data-city-id="5" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="Portal" style="margin-left:10%;" data-branch-opening="8" data-branch-closing="8" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="45">
+                                                    &nbsp;Portal</label></li><li data-city-id="11" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="Hanston (Ortigas)" style="margin-left:10%;" data-branch-opening="8" data-branch-closing="11" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="59">
+                                                    &nbsp;Hanston (Ortigas)</label></li><li data-city-id="15" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="Bonifacio Stopover" style="margin-left:10%;" data-branch-opening="10" data-branch-closing="9" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="0">
+                                                    &nbsp;Bonifacio Stopover</label></li><li data-city-id="3" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="SM Jazz" style="margin-left:10%;" data-branch-opening="10" data-branch-closing="8" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="0">
+                                                    &nbsp;SM Jazz</label></li><li data-city-id="14" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="Greenhills" style="margin-left:10%;" data-branch-opening="12" data-branch-closing="7" data-branch-opening-meridiem="PM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="45">
+                                                    &nbsp;Greenhills</label></li><li data-city-id="1607" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="Kalaw" style="margin-left:10%;" data-branch-opening="7" data-branch-closing="8" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="45">
+                                                    &nbsp;Kalaw</label></li><li data-city-id="1607" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="PGH - Taft" style="margin-left:10%;" data-branch-opening="7" data-branch-closing="11" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="45">
+                                                    &nbsp;PGH - Taft</label></li><li data-city-id="1607" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="SM San Lazaro" style="margin-left:10%;" data-branch-opening="10" data-branch-closing="7" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="30">
+                                                    &nbsp;SM San Lazaro</label></li><li data-city-id="1607" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="Dapitan" style="margin-left:10%;" data-branch-opening="7" data-branch-closing="9" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="30">
+                                                    &nbsp;Dapitan</label></li><li data-city-id="13" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="SM Annex" style="margin-left:10%;" data-branch-opening="10" data-branch-closing="8" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="45">
+                                                    &nbsp;SM Annex</label></li><li data-city-id="13" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="Shopwise Cubao" style="margin-left:10%;" data-branch-opening="9" data-branch-closing="11" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="45">
+                                                    &nbsp;Shopwise Cubao</label></li><li data-city-id="13" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="SM Centerpoint" style="margin-left:10%;" data-branch-opening="10" data-branch-closing="8" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="45">
+                                                    &nbsp;SM Centerpoint</label></li><li data-city-id="5" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="Boni Ave." style="margin-left:10%;" data-branch-opening="6" data-branch-closing="11" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="45">
+                                                    &nbsp;Boni Ave.</label></li><li data-city-id="3" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="Glorietta 3" style="margin-left:10%;" data-branch-opening="10" data-branch-closing="8" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="30">
+                                                    &nbsp;Glorietta 3</label></li><li data-city-id="3" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="Makati Ave" style="margin-left:10%;" data-branch-opening="8" data-branch-closing="11" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="45">
+                                                    &nbsp;Makati Ave</label></li><li data-city-id="10" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="Buendia" style="margin-left:10%;" data-branch-opening="7" data-branch-closing="11" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="45">
+                                                    &nbsp;Buendia</label></li><li data-city-id="7" style="display:block;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" class="branchz" name="preferredStore" value="Starmall Alabang" style="margin-left:10%;" data-branch-opening="10" data-branch-closing="8" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="15">
+                                                    &nbsp;Starmall Alabang
+                                                    </label>
+                                                    </li><li data-city-id="6" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="SM Marikina" style="margin-left:10%;" data-branch-opening="10" data-branch-closing="7" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="30">
+                                                    &nbsp;SM Marikina</label></li><li data-city-id="5" style="display:none;margin-bottom:25px;list-style-type:none;"><label class="radio"><div></div>
+                                                    <input type="radio" name="preferredStore" value="SM Light Mall" style="margin-left:10%;" data-branch-opening="11" data-branch-closing="7" data-branch-opening-meridiem="AM" data-branch-closing-meridiem="PM" data-branch-opening-minute="0" data-branch-closing-minute="30">
+                                                    &nbsp;SM Light Mall</label></li>
+                                </ul></div>
+                                <p style="text-align:center">
+                                    Note: Store listing is based on the city indicated on
+                                    <br>your delivery address.
+                                    <br>You may call <strong><i>533 3333</i></strong> to check on other delivery options to your address
+                                    <br>or send us your inquiry  <a href="https://wendys.com.ph/contact-us/">here</a>
+                                </p>
+                            </div>
+                            <div class="modal-footer" style="text-align:center">
+                                <input type="button" id="btnCloseDialog" value="Close" class="btn btn-default" data-dismiss="modal">
+                                <input type="hidden" value="Submit" name="step-2">
+                                <button type="button" id="submitBrachForm" class="btn btn-default" name="step-2">OK</button>                            </div>
+                        </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+    </div>
+
+</div>	<div id="footer">
+
+        <div class="container positionRelative">
+
+        	<div id="quickLogin" class="hidden-sm hidden-xs loggedIn">
+            	<a href="#" class="quickButton">
+					My Account                </a>
+                <div class="dashboard row">
+                	                    		<div class="myAccount col-md-12">
+                            	<ul>
+									                                    <li><a href="https://wendys.com.ph/my-account/">Account Dashboard</a></li>
+                                    <li><a href="https://wendys.com.ph/my-account/account-information/">Account Information</a></li>
+                                    <li><a href="https://wendys.com.ph/my-account/my-orders/">My Orders</a></li>
+                                                                        <li><a href="https://wendys.com.ph/my-account/logout/">Logout</a></li>
+                                                                    </ul>
+                            </div>
+                                    </div>
+            </div>
+
+        	<div class="row">
+<div class="col-md-4">
+<div id="left" style="margin-right: -60px;">Copyright -&nbsp;<a href="https://www.wendys.com.ph/about-us/">About Us</a>&nbsp;-&nbsp;<a href="https://www.wendys.com.ph/terms-and-conditions/">terms and condition</a>&nbsp;-&nbsp;<a href="https://www.wendys.com.ph/privacy-policy/">Privacy Policy</a>
+</div>
+</div>
+
+<div class="col-md-6">
+<div id="right">IT'S THE BEST TIME TO CONNECT.&nbsp;LIKE / FOLLOW US <a href="http://www.facebook.com/WendysPhilippines?ref=ts&amp;fref=ts" target="_blank"> <img src="https://wendys.com.ph/file-manager/images/Icons/social_fb.png"> </a> <a href="https://twitter.com/WendysPhils" target="_blank"> <img src="https://wendys.com.ph/file-manager/images/Icons/social_twitter.png"> </a></div>
+</div>
+</div>
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+<!-- Advenue DMP Container - Wendys Website -->
+<script type="text/javascript" charset="UTF-8">(function(w,d,s,i,c){var f=d.createElement(s);f.type="text/javascript";f.async=true;f.src=("https:"==d.location.protocol? "https://ssl-avd.innity.net":"http://avd.innity.net")+"/"+i+"/container_"+c+".js";var g=d.getElementsByTagName(s)[0];g.parentNode.insertBefore(f, g);})(window, document, "script", "197", "576385181c51b1f937cb8bde");</script>
+<!-- End Advenue DMP Container -->
+
+
+<script type="text/javascript">
+
+//google analytics
+ (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-63126342-1', 'auto');
+  ga('send', 'pageview');
+
+
+
+var livesitePath = 'https://wendys.com.ph/';
+var siteName = "Wendy's";
+var lastPageVisited = '';
+var param = ["output","step-2",""];
+</script>
+<script type="text/javascript" src="https://wendys.com.ph/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/plugins/lazyLoad/jquery.lazyload.min.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/plugins/prettyPhoto/jquery.prettyPhoto.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/plugins/print-area/jquery.PrintArea.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/plugins/ajaxFileUpload/ajaxfileupload.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/plugins/ui/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/plugins/ui/jquery.easing.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/plugins/camera/jquery.mobile.customized.min.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/plugins/camera/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/plugins/camera/camera.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/plugins/library/library.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/js/contacts.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/js/news.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/js/joblisting.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/js/poll.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/js/my-account.js"></script>
+<script type="text/javascript" src="https://wendys.com.ph/js/ecommerce.js?v=20170914_02"></script>
+<script type="text/javascript" src="https://wendys.com.ph/js/script.js?v=2"></script>
+
+
+<div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div><iframe id="avdfi_1509715719721" src="javascript:'<html><body style=&quot;background:transparent&quot;></body></html>'" height="0" width="0" marginheight="0" marginwidth="0" frameborder="0" scrolling="no" style="width: 0px; height: 0px; border: 0px none; background: none;"></iframe></body></html>

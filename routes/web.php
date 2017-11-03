@@ -19,6 +19,4 @@ Route::get('/delivery' , function () {
     return view('delivery');
 })->name('delivery');
 
-Route::get('/delivery/categories' , function () {
-    return view('categories');
-})->name('categories');
+Route::get('/delivery/categories' , 'DeliveryController@displayCategories')->name('categories');

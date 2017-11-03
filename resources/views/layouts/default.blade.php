@@ -60,8 +60,7 @@
           <div data-src="{{asset('images/banner/SALAD WELCOME.jpg')}}" data-link=""></div>
           <div data-src="{{asset('images/banner/salad bar.jpg')}}" data-link=""></div>
   	</div>
-
-
+  </div>
   <div class="clear"></div>
   <div id="wrapper">
     <!-- gcodeStart 1.18.16 -->

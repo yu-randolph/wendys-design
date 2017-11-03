@@ -1,0 +1,170 @@
+Signature Iced tea
+ - Fresh Iced Tea
+ - Freshly brewed tea made better with the sweet and sour taste of lemon.
+ - Regular PHP 49.00, Large PHP 55.00, Biggie PHP 69.00
+
+ - Fresh Iced Tea Lite
+ - Our freshly brewed tea with the same citrusy taste but with less calories!
+ - Regular PHP 49.00, Large PHP 55.00, Biggie PHP 69.00
+
+Bundle Meal
+ - Baconator Single Bundle
+ - For 3 PHP 499.00, For 4 PHP 659.00
+
+ - Bacon Mushroom Melt Bundle
+ - Your forever favorite Bacon Mushroom Melt made for your friends and family. Now with Butterscotch Bar!
+ - For 3 PHP 399.00, For 4 PHP 499.00
+
+ - Fried Chicken Bundle
+ - Crispy and meaty chicken meal your family will enjoy. Now with Butterscotch bar!
+ - For 3 PHP 459.00, For 4 PHP 599.00
+
+Baconator
+ - Baconator Mushroom Melt
+ - A classic Wendy’s twist to the Baconator. Loaded with two quarter-pound beef patties, two slices of American cheese and six strips of smoked bacon in a toasted premium Kaiser bun drizzled with our signature cheese with mushroom sauce.
+ - Ala-carte PHP 246.00, Combo PHP 298.00
+
+ - Baconator Single
+ - It’s everything a Baconator should be: crispy bacon, melted premium cheese, buttery soft bun and a juicy single patty made of choice-cut beef, prepared right when you order.  Its new single size is specially created for the lightweight Baconator lover
+ - Ala-carte PHP 145.00, Combo PHP 175.00
+
+ - Baconator
+ - Two quarter-pound beef patties, two slices of American cheese and six strips of smoked bacon all served fresh in a toasted premium Kaiser bun. It’s the burger for big appetites!
+ - Ala-carte PHP 246.00, Combo PHP 298.00
+
+Hot N' Juicy Cheeseburger
+ - Single with Cheese
+ - Two quarter-pound beef patties, two slices of American cheese and six strips of smoked bacon all served fresh in a toasted premium Kaiser bun. It’s the burger for big appetites!
+ - Ala-carte PHP 136.00, Combo PHP 189.00
+
+ - Bacon Mushroom Melt
+ - Indulge in this fresh off the grill beef patty, american cheese, crispy bacon, smothered in mushroom cheddar sauce, sandwiched in toasted buttered buns. Grab one now and savor the Wendy’s Bacon Mushroom Melt, your forever favorite.
+ - Ala-carte PHP 91.00, Combo PHP 142.00
+
+ - Cheeseburger Deluxe
+ - Level up with 100% pure beef patty with the complete combo of mayonnaise, ketchup, pickles, onions, tomato, lettuce and a slice of American cheese all in a toasted bun. Who knew cheeseburgers could get even better?
+ - Ala-carte PHP 74.00, Combo PHP 136.00
+
+ - Bacon Cheeseburger
+ - Everything gets more awesome with bacon! Just like our 100% pure beef patty on a toasted bun with mayonnaise, tomato, lettuce and American cheese topped with two strips of smoked bacon.
+ - Ala-carte PHP 91.00, Combo PHP 142.00
+
+Hearty Sandwiches
+ - Zesty Chicken Sandwiches
+ - Everything gets more awesome with bacon! Just like our 100% pure beef patty on a toasted bun with mayonnaise, tomato, lettuce and American cheese topped with two strips of smoked bacon.
+ - Ala-carte PHP 49.00, Combo PHP 78.00
+
+ - Shrimp Sandwich
+ - Each  patty is made from the freshest grade-A shrimps with the perfect mix of choice spices, fried until golden and sandwiched by creamy tartar sauce and fresh veggies slaw in a warm, toasted buttery bun
+ - Ala-carte PHP 98.00, Combo PHP 149.00
+
+ - Fish Fillet Sandwich
+ - Alaskan polluck with crispy panko breading,  new creamy tartar dressing & fresh veggie slaw.   It's a treat! Only from Wendy's!
+ - Ala-carte PHP 98.00, Combo PHP 130.00
+
+ - Spicy Chicken Fillet
+ - Chicken breast fillet marinated and lightly breaded to perfection with spicy seasoning plus mayonnaise, tomato and lettuce on a toasted bun. Yup, this is one hot chicken burger!
+ - Ala-carte PHP 98.00, Combo PHP 99.00
+
+ - Homestyle Chicken Fillet
+ - Breaded and pressure-fried chicken breast fillet served with mayonnaise, tomato and lettuce on a toasted premium Kaiser bun. You can even make it extra special with additional cheese or bacon.
+ - Ala-carte PHP 109.00, Combo PHP 155.00
+
+Meaty Chicken
+ - Chicken Nuggets 6 Pieces
+ - Crispy, bite-sized, all-white chicken meat. Crispy outside, juicy inside. Choose from 2 your favorite sauce honey barbecue or honey mustard. Also available with rice or French fries for Combo meal.
+ - Ala-carte PHP 99.00, Combo PHP 129.00
+
+ - Two Pieces Fried Chicken with Rice
+ - Two servings of our signature fried chicken, made with a special blend of seasoning, freshly breaded in the store and cooked for every order, now served with rice.
+ - Ala-carte PHP 141.00, Combo PHP 160.00
+
+ - One Pieces Fried Chicken with Rice
+ - Our signature fried chicken, made with a special blend of seasoning, freshly breaded in the store and cooked for every order, now served with rice.
+ - Ala-Carte PHP 86.00, Combo PHP 99
+
+ - One Pieces Fried Chicken with Spaghetti
+ - Spaghetti and one serving of our signature fried chicken, made with a special blend of seasoning, freshly breaded in the store and cooked for every order.
+ - Combo PHP 139.00
+
+ - 5 For 125
+ - Your Wendy's favorites come together in one awesome deal of a meal. Now you'll feel 5x more filled and 5x more satisfied with the new #Wendys5for125! Enjoy our 1-pc Salisbury Steak, Crunchy Spring Rolls, Natural-Cut Fries, Frosty, and soda all by yourself.
+ - PHP 125.00
+
+Real Meal Deals
+ - Two Piece Salisbury Steak
+ - Enjoy your burger as a complete meal with two beef patties, a generous serving of savory gravy with mushrooms and rice. Great for lunch or dinner!
+ - Ala-carte PHP 77.00, Combo PHP 87.00
+
+ - Spaghetti
+ - Twirl your fork into this tomato delight! Noodles cooked al-dente served with a rich tomato-based sauce made with 100% pure ground beef, spices, and sausages topped with shredded cheese.
+ - Ala-carte PHP 49.00, Combo PHP 64.00
+
+ - One Piece Salisbury Steak
+ - Enjoy your burger as a complete meal with one beef patty, a generous serving of savory gravy with mushrooms and rice. Great for lunch or dinner!
+ - Ala-carte PHP 55.00
+
+ - Crunchy Spring Roll
+ - This Asian-inspired roll has a crunchy shell with ground pork, fresh vegetables and spices inside! Served with sweet chili sauce.
+ - Ala-carte PHP 55.00, Combo PHP 65.00
+
+ - Sesame Garlic Chicken
+ - "Crunchy chicken bites with savory Sesame Garlic Sauce, paired with freshly cooked rice."
+ - Ala-carte PHP 55.00
+
+Green Salads
+ - Macaroni Side Salad
+ - Freshly prepared from mixed macaroni, pineapple tidbits, green and red jello, raisins, cucumber, and shredded cheese. It’s the perfect complement to any Wendy’s meal.
+ - Solo PHP 49.00, Big PHP 142.00
+
+ - Garden Side Salad
+ - A healthy side order of fresh tomatoes, shredded cheese, shredded carrots, sliced cucumber, onions and croutons prepared with our unique salad blend.
+ - Solo PHP 45.00, Big PHP 132.00
+
+ - Chicken Caesar Side Salad
+ - Freshly prepared with crisp Romaine lettuce, crunchy bacon bits, croutons, taste chicken bites and shredded cheese drizzled with Caesar's dressing.
+ - Solo PHP 55.00, Big PHP 149.00
+
+ - Chunky Chicken Salad
+ - Get your fill with a hefty portion of fresh romaine lettuce, delicious chicken fillet slices, hard boiled eggs and tomato wedges, topped with bits of bacon and a sweet and tangy honey mustard dressing. Who says a salad isn’t filling?
+ - Solo PHP 55.00, Big PHP 149.00
+
+Frosty
+ - Frosty Vanilla
+ - If it's better than ice cream then you know it's really good! This rich and thick creamy dessert is the perfect end to any meal.
+ - Regular PHP 38.00, Medium PHP 60.00, Large PHP 74.00
+
+ - Frosty Chocolate
+ - If it’s better than ice cream then you know it’s really good! This rich and thick chocolate-like shake is the perfect end to any meal.
+ - Regular PHP 38.00, Medium PHP 60.00, Large PHP 74.00
+
+ - Mango Graham Burst
+ - Sweet mango swirl and real fruit bits, topped with crushed grahams and mango poppers
+ - Regular PHP 45.00
+
+ - Twisted Frosty Classic with Oreo Cookies
+ - Medium PHP 55.00, Large PHP 79.00
+
+ - Twisted Frosty Salted Caramel Crunch
+ - Medium PHP 55.00, Large PHP 79.00
+
+Signature Sides
+ - Salisbury Baked Potato
+ - PHP 49.00
+
+ - Natural Cut Fries with Sea Salt
+ - Made from real fresh potatoes deep-fried to perfection, each served with just the right amount of sea salt for that extra special flavor!
+ - Regular PHP 32.00, Large PHP 62.00, Biggie PHP 76.00
+
+ - Baked Potato Cheese & Cheese
+ - Dig into this famous and delicious Wendy’s classic! The bursting flavor of hot baked potato topped with cheese and cheese.
+ - Solo PHP 49.00
+
+Beverages
+ - Soft Drink
+ - Enjoy your Wendy’s favorites with your choice of Coca-Cola, Sprite, Royal, Sarsi or Minute Maid Fresh.
+ - Regular PHP 47.00, Large PHP 52.00, Biggie PHP 67.00
+
+ - Coffee
+ - Sip on the bold flavor of 100% pure coffee brew.
+ - PHP 30.00
