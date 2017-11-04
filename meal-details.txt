@@ -34,7 +34,6 @@ Baconator
 
 Hot N' Juicy Cheeseburger
  - Single with Cheese
- - Two quarter-pound beef patties, two slices of American cheese and six strips of smoked bacon all served fresh in a toasted premium Kaiser bun. It’s the burger for big appetites!
  - Ala-carte PHP 136.00, Combo PHP 189.00
 
  - Bacon Mushroom Melt
@@ -51,7 +50,7 @@ Hot N' Juicy Cheeseburger
 
 Hearty Sandwiches
  - Zesty Chicken Sandwiches
- - Everything gets more awesome with bacon! Just like our 100% pure beef patty on a toasted bun with mayonnaise, tomato, lettuce and American cheese topped with two strips of smoked bacon.
+ -
  - Ala-carte PHP 49.00, Combo PHP 78.00
 
  - Shrimp Sandwich

@@ -6,14 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    //
-}
-public function category()
-{
-  return $this->belongsTo('App\Category');
-}
+    public function category()
+    {
+      return $this->belongsTo('App\Category');
+    }
 
-public function meals()
-{
-  return $this->hasMany('App\Meal');
+    public function meals()
+    {
+      return $this->hasMany('App\Meal');
+    }
 }
