@@ -11,7 +11,6 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
         $category = new Category;
         $category->name = "SIGNATURE ICED TEA";
         $category->image = "iced-tea.jpg";
