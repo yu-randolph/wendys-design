@@ -8,6 +8,6 @@ class Meal extends Model
 {
     public function item()
     {
-      return $this->belongsTo('App\Category');
+      return $this->belongsTo('App\Item');
     }
 }

@@ -26,12 +26,6 @@
 
   <link rel="stylesheet" type="text/css" href="{{asset('vendors/ui/jquery-ui.css')}}">
 
-  <script type="text/javascript" src="{{asset('vendors/bootstrap/js/html5shiv.js')}}"></script>
-  <script type="text/javascript" src="{{asset('vendors/bootstrap/js/respond.min.js')}}"></script>
-
-  <script type="text/javascript" src="{{asset('js/responsiveslides.js')}}"></script>
-  <script src="{{asset('js/responsiveslides.js')}}"></script>
-
   <!-- JAVASCRIPT FOR DELIVERY PREFERRED BRANCH-->
 
   <script type="text/javascript">
@@ -555,7 +549,7 @@
   </div>
   <div id="banner" style="width: 100%; height: 50%;">
 
-    <div id="subBanner" data-image="https://wendys.com.ph/images/subbanner/wendys.jpg" style="background: url(&quot;https://wendys.com.ph/images/subbanner/wendys.jpg&quot;) center center / cover;"></div>
+    <div id="subBanner" data-image="{{asset('images/subbanner/wendys.jpg')}}" style="background: url(&quot;{{asset('images/subbanner/wendys.jpg')}}&quot;) center center / cover;"></div>
   </div>
 
 
@@ -664,7 +658,7 @@
                 <div id="miniCart">
                   <form id="miniCartForm" class="formPreloader" data-source="miniCart">
                     <div class="cartContainer">
-                      <div class="col-md-12">Currently, you have no order</div>
+                      <div class="col-md-12" id="emptyCart">Currently, you have no order</div>
                     </div>
                   </form>
                 </div>
@@ -699,7 +693,7 @@
 
           </div>
 
-          @yield('content');
+          @yield('content')
 
 	<div id="footer">
 
@@ -712,7 +706,7 @@
                 	                            <div class="register col-md-4">
                                 <h2 class="title">Create New Account</h2>
                                 <p><big>You are not a member?</big><br>Please join us now!&nbsp;</p>
-                                <button type="button" onclick="location.href='https://wendys.com.ph/my-account/register/'">
+                                <button type="button" onclick="#'">
                                     <div>Register</div> <span></span>
                                 </button>
                                 <div class="divider"></div>
@@ -733,8 +727,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-md-8">
-                                        <a href="https://wendys.com.ph/my-account/forgot-password/">Forgot Password?</a> |
-                                        <a href="https://wendys.com.ph/my-account/re-activate-account/">Re-activate Account</a>
+                                        <a href="#">Forgot Password?</a> |
+                                        <a href="#">Re-activate Account</a>
                                     </div>
                                     <div class="form-group col-md-4 text-right">
                                         <button type="submit">
@@ -748,12 +742,12 @@
 
         	<div class="row">
 <div class="col-md-4">
-<div id="left" style="margin-right: -60px;">Copyright -&nbsp;<a href="https://www.wendys.com.ph/about-us/">About Us</a>&nbsp;-&nbsp;<a href="https://www.wendys.com.ph/terms-and-conditions/">terms and condition</a>&nbsp;-&nbsp;<a href="https://www.wendys.com.ph/privacy-policy/">Privacy Policy</a>
+<div id="left" style="margin-right: -60px;">Copyright -&nbsp;<a href="#">About Us</a>&nbsp;-&nbsp;<a href="#">terms and condition</a>&nbsp;-&nbsp;<a href="https://www.wendys.com.ph/privacy-policy/">Privacy Policy</a>
 </div>
 </div>
 
 <div class="col-md-6">
-<div id="right">IT'S THE BEST TIME TO CONNECT.&nbsp;LIKE / FOLLOW US <a href="http://www.facebook.com/WendysPhilippines?ref=ts&amp;fref=ts" target="_blank"> <img src="https://wendys.com.ph/file-manager/images/Icons/social_fb.png"> </a> <a href="https://twitter.com/WendysPhils" target="_blank"> <img src="https://wendys.com.ph/file-manager/images/Icons/social_twitter.png"> </a></div>
+<div id="right">IT'S THE BEST TIME TO CONNECT.&nbsp;LIKE / FOLLOW US <a href="http://www.facebook.com/WendysPhilippines?ref=ts&amp;fref=ts" target="_blank"> <img src="{{asset('images/icons/social_fb.png')}}"> </a> <a href="https://twitter.com/WendysPhils" target="_blank"> <img src="{{asset('images/icons/social_twitter.png')}}"> </a></div>
 </div>
 </div>
         </div>
@@ -767,7 +761,7 @@
 </strong></strong>
   </div><strong><strong>
 
-  <script type="text/javascript" src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/jquery-1.9.1.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/bootstrap/js/bootstrap.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/lazyLoad/jquery.lazyload.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/prettyPhoto/jquery.prettyPhoto.js')}}"></script>
@@ -779,6 +773,8 @@
   <script type="text/javascript" src="{{asset('vendors/camera/camera.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/library/library.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/bootstrap/js/html5shiv.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/cart.js')}}"></script>
+
 
 </strong></strong><iframe id="avdfi_1509541953903" src="javascript:'<html><body style=&quot;background:transparent&quot;></body></html>'" height="0" width="0" marginheight="0" marginwidth="0" frameborder="0" scrolling="no" style="width: 0px; height: 0px; border: 0px none; background: none;"></iframe>
 </body>

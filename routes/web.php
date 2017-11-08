@@ -20,3 +20,6 @@ Route::get('/delivery' , function () {
 })->name('delivery');
 
 Route::get('/delivery/categories' , 'DeliveryController@displayCategories')->name('categories');
+Route::get('/delivery/categories/items/{categoryId}' , 'DeliveryController@displayItems')->name('items');
+Route::get('/delivery/categories/items/{categoryId}/meal/{itemId}' , 'DeliveryController@displayItem')->name('item');
+Route::get('/checkout/{stepNo}' , 'DeliveryController@displayCheckout')->name('checkout');

@@ -534,7 +534,7 @@ class CategoriesTableSeeder extends Seeder
         $item = new Item;
         $item->name = "Crunchy Spring Roll";
         $item->description = "This Asian-inspired roll has a crunchy shell with ground pork, fresh vegetables and spices inside! Served with sweet chili sauce.";
-        $item->image = "rmd-cruny-spring-roll.jpg";
+        $item->image = "rmd-crunchy-spring-roll.jpg";
         $item->category_id = $category->id;
         $item->save();
 
@@ -586,7 +586,7 @@ class CategoriesTableSeeder extends Seeder
         $item = new Item;
         $item->name = "Garden Side Salad";
         $item->description = "A healthy side order of fresh tomatoes, shredded cheese, shredded carrots, sliced cucumber, onions and croutons prepared with our unique salad blend.";
-        $item->image = "macaroni-side-salad.jpg";
+        $item->image = "garden-side-salad.jpg";
         $item->category_id = $category->id;
         $item->save();
 
@@ -624,7 +624,7 @@ class CategoriesTableSeeder extends Seeder
         $item = new Item;
         $item->name = "Chunky Chicken Salad";
         $item->description = "Get your fill with a hefty portion of fresh romaine lettuce, delicious chicken fillet slices, hard boiled eggs and tomato wedges, topped with bits of bacon and a sweet and tangy honey mustard dressing. Who says a salad isn’t filling?";
-        $item->image = "macaroni-side-salad.jpg";
+        $item->image = "chunky-chicken-salad.jpg";
         $item->category_id = $category->id;
         $item->save();
 
@@ -700,7 +700,7 @@ class CategoriesTableSeeder extends Seeder
         $item = new Item;
         $item->name = "Mango Graham Burst";
         $item->description = "Sweet mango swirl and real fruit bits, topped with crushed grahams and mango poppers";
-        $item->image = "frosty-chocolate.jpg";
+        $item->image = "frosty-mango-graham-burst.jpg";
         $item->category_id = $category->id;
         $item->save();
 
@@ -713,7 +713,7 @@ class CategoriesTableSeeder extends Seeder
         $item = new Item;
         $item->name = "Twisted Frosty Classic with Oreo Cookies";
         $item->description = " ";
-        $item->image = "frosty-chocolate.jpg";
+        $item->image = "twisted-frosty-oreo.jpg";
         $item->category_id = $category->id;
         $item->save();
 
@@ -732,7 +732,7 @@ class CategoriesTableSeeder extends Seeder
         $item = new Item;
         $item->name = "Twisted Frosty Salted Caramel Crunch";
         $item->description = " ";
-        $item->image = "frosty-chocolate.jpg";
+        $item->image = "twisted-frosty-salted-caramel.jpg";
         $item->category_id = $category->id;
         $item->save();
 
