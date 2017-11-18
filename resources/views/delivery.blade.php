@@ -23,7 +23,7 @@
     <p>&nbsp;</p>
 
     <p>
-      <!--Sorry, online order not available at this time. Please come back shortly!--><a class="btn btn-warning" href="{{route('categories')}}">Order Now!</a></p>
+      <!--Sorry, online order not available at this time. Please come back shortly!--><a class="btn btn-warning" href="{{route('categories',['siteNo'=>$siteNo])}}">Order Now!</a></p>
 
 
     <br>

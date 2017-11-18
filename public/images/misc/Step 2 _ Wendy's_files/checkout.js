@@ -22,11 +22,11 @@ $('#dineInForPickUp').change(function(){
   $('.delivery').show();
 });
 
-// $('#btn-order').click(function(){
-//   cart = [];
-//   sessionStorage.setItem("cart",JSON.stringify(cart));
-//   window.location.href = "../"
-// })
+$('#btn-order').click(function(){
+  cart = [];
+  sessionStorage.setItem("cart",JSON.stringify(cart));
+  window.location.href = "../"
+})
 $('#immediateDeliver').change(function(){
   $('.preferredDateAndTime').toggle();
 })

@@ -32,13 +32,13 @@
             </div>
                         <div class="form-group">
             	<div class="col-sm-12 text-right">
-                	<a href="{{route('checkout',['stepNo' => 2])}}"><button type="button" class="btn btn-warning">
+                	<a href="{{route('checkout',['stepNo' => 2, 'siteNo' => $siteNo])}}"><button type="button" class="btn btn-warning">
                     	Previous
                     </button></a>
-              		<a href="{{route('checkout',['stepNo' => 4])}}"><button type="button" class="btn btn-warning" name="step-3">
+              		<a href="{{route('checkout',['stepNo' => 4, 'siteNo' => $siteNo])}}"><button type="button" class="btn btn-warning" name="step-3">
                     	Continue
                     </button></a>
-                    <a href="{{route('categories')}}"><button type="button" class="btn btn-warning" onclick="location.href='https://wendys.com.ph/delivery/'">
+                    <a href="{{route('categories',['siteNo' => $siteNo])}}"><button type="button" class="btn btn-warning" onclick="location.href='https://wendys.com.ph/delivery/'">
                     	Cancel Order
                     </button></a>
             	</div>

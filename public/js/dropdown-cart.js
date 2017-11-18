@@ -35,7 +35,7 @@ $(".cart").on("click", ".btn-update", function () {
   initCart();
 });
 // var item = {id:"", name:"", image:"", price:"", mealName:"", quantity:""}
-$('input:radio[name="option1"]').change(function(){
+$('#choose-meal').change(function(){
   changeTotal();
 });
 $('#quantity').keyup(function(){
@@ -47,21 +47,21 @@ $('.btn-add').click(function(){
   var invalidDrink = false;
   var invalidQuantity = false;
   var error = false;
-
   var warningMessage = "Please do not leave the following fields empty:\n";
+
   if($('#quantity').val() == 0){
     invalidQuantity = true;
     error = true;
   }
-  if(!$("input:radio[name='option1']:checked").val()){
+  if($('#choose-meal').val() == 0 && $('#choose-meal').is(':visible')){
     invalidMeal = true;
     error = true;
   }
-  if(!$("input:radio[name='option2']:checked").val() && $("input:radio[name='option2']").length > 0) {
+  if($("#size-dropdown").val() == 0 && $('#choose-size').is(':visible')){
     invalidCombo = true;
     error = true;
   }
-  if(!$("input:radio[name='option3']:checked").val()&& $("input:radio[name='option3']").length > 0){
+  if($('#drink-dropdown').val() == 0 && $('#choose-drink').is(':visible')){
     invalidDrink = true;
     error = true;
   }
@@ -87,9 +87,9 @@ $('.btn-add').click(function(){
 function addCart(){
   var itemId = $('#itemId').val();
   var itemImage = $('#itemImage').val()
-  var basePrice = $("input:radio[name='option1']:checked").data("price");
-  var mealId = $("input:radio[name='option1']:checked").data("id");
-  var label = $("input:radio[name='option1']:checked").data("label");
+  var basePrice = $('#choose-meal').find(':selected').data("price");
+  var mealId = $('#choose-meal').find(':selected').data("id");
+  var label = $('#choose-meal').find(':selected').data("label");
   var quantity = $("#quantity").val();
   var itemName = $('#itemName').text();
   var isAlter = "";
@@ -129,7 +129,7 @@ function addCart(){
 }
 
 function changeTotal(){
-  var basePrice = $("input:radio[name='option1']:checked").data("price");
+  var basePrice = $('#choose-meal').find(':selected').data("price");
   var quantity = $("#quantity").val();
   $('.quickTotal').text("Total: PHP "+basePrice * quantity+".00");
 }

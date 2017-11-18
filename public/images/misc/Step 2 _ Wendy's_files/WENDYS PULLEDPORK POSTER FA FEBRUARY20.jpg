@@ -1,0 +1,48 @@
+<div id="content">
+
+	<div class="container">
+    
+	    <div class="row">
+        
+            <div class="col-md-6">
+            
+                <div class="panel panel-default leftHeight">
+                    <div class="panel-body">
+                        <p><big><strong>Sorry but this page cannot be found</strong></big></p>
+                        <p>The page you are trying to reach doesnt exist or has been moved.</p>
+                        <p>If you are searching for a product, please try our fulltext search.</p>
+                        <p>
+                            <form class="form-inline" role="form" id="searchForm" action="">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search 
+Notice: Undefined variable: siteName in /home/wendys/html/404.php on line 17
+" name="q" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="submit">
+                                            <span class="glyphicon glyphicon-search"></span> Search
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </p>
+                        <p>Or browse our <a href="
+Notice: Undefined variable: livesitePath in /home/wendys/html/404.php on line 26
+">Homepage</a>.</p>
+                    </div>                        
+                </div>
+            
+            </div>
+            
+            <div class="col-md-6">
+            
+                <div>
+                
+                    <div class="panel panel-default rightHeight">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Browse Categories</h3>
+                        </div>
+                        <div class="panel-body">
+                            
+Notice: Undefined variable: ecommerce in /home/wendys/html/404.php on line 42
+
+Fatal error: Call to a member function categories() on a non-object in /home/wendys/html/404.php on line 42

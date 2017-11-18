@@ -26,522 +26,21 @@
 
   <link rel="stylesheet" type="text/css" href="{{asset('vendors/ui/jquery-ui.css')}}">
 
-  <!-- JAVASCRIPT FOR DELIVERY PREFERRED BRANCH-->
-
-  <script type="text/javascript">
-    jQuery(document).ready(function() {
-      /*  John Paul Cas */
-      var indicator = false;
-      var isValid = false;
-
-      function showMessage() {
-        // this is a test
-        alert("Opps something great will happen");
-      }
-
-      function same() {
-
-        var ul = document.getElementById("branches");
-        var items = ul.getElementsByTagName("li");
-
-        var prevcity = document.getElementById("previousCity").getAttribute("data-previous-city");
-
-        for (var i = 0; i < items.length; i++) {
-          items[i].style.display = "block";
-          if (items[i].getAttribute("data-city-id") != prevcity) {
-            items[i].style.display = "none";
-          }
-        }
-
-      }
-
-      function newCity() { // new is a reserve word
-        var ul = document.getElementById("branches");
-        var items = ul.getElementsByTagName("li");
-
-        var sel = document.getElementById("city");
-        var cityId = sel.options[sel.selectedIndex].getAttribute("data-city-id");
-        var count = 0;
-
-        for (var i = 0; i < items.length; i++) {
-          items[i].style.display = "block";
-          if (items[i].getAttribute("data-city-id") != cityId) {
-            items[i].style.display = "none";
-            count++;
-          }
-        }
-
-        if (count == items.length)
-          emptyDataModalDisplaySetting();
-        else
-          document.getElementById("head").innerHTML = "Please select preferred store <br>to continue.";
-      }
-
-      $('#sameAddress').click(function() {
-        dataModalDisplaySetting();
-      });
-
-      /*$('#checkbox_div input[type="radio"]').click(function() {
-  alert("clicked") ;
- });*/
-
-      /* $("#city").click(newCity); v1 */
-      $("#city").change(newCity);
-
-      $("#submitBrachForm").click(function() {
-
-        var orderHour = $("#hourOrder");
-        var orderMinute = $("#minuteOrder");
-        var meridiemOrder = $("#meridiemOrder");
-
-        var checkItem = $("input[name='preferredStore']:checked");
-        var branchOpening = parseInt(checkItem.attr("data-branch-opening"));
-        var branchOpeningMinute = parseInt(checkItem.attr("data-branch-opening-minute"));
-        var branchClosing = parseInt(checkItem.attr("data-branch-closing"));
-        var branchClosingMinute = parseInt(checkItem.attr("data-branch-closing-minute"));
-        var branchOpeningMeridiem = checkItem.attr("data-branch-opening-meridiem");
-        var branchClosingMeridiem = checkItem.attr("data-branch-closing-meridiem");
-        var branchName = checkItem.val();
-
-        if (isEmptyField(checkItem)) {
-          alert("You need to select store");
-          return false;
-        } else {
-          if (!isImmediateDeliver()) {
-            // this algorithm is design only if the opening meridiem is AM and closing meridiam is PM
-            if (meridiemOrder.val() == 'AM') {
-              if (branchOpening == 12) {
-                // check if the branch opening is 12pm
-                if ((parseInt(orderHour.val()) == branchOpening || (parseInt(orderHour.val()) > (branchOpening / 12) && parseInt(orderHour.val()) < 12))) {
-                  // send the form
-                  $("#stepTwoSubmitForm").submit();
-                  $("#cityBranchListModal").modal().hide();
-                } else {
-                  // show error notification here
-                  alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm in " + branchName + " Branch.");
-                }
-
-              } else {
-
-                if ((parseInt(orderHour.val())) >= branchOpening) {
-                  $("#stepTwoSubmitForm").submit();
-                  $("#cityBranchListModal").modal().hide();
-
-                } else {
-                  // show some error notification here
-                  alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm in " + branchName + " Branch.");
-                }
-              }
-            } else {
-              if (branchClosing == 12) {
-                if ((parseInt(orderHour.val())) == branchClosing) {
-                  if (parseInt(orderMinute.val()) <= (branchClosingMinute - 30)) {
-                    $("#stepTwoSubmitForm").submit();
-                    $("#cityBranchListModal").modal().hide();
-
-                  } else {
-                    alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm and 30 minutes before " +
-                      branchName + " Branch closing time.");
-                  }
-
-                } else {
-                  alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm in " + branchName + " Branch.");
-                }
-              } else {
-                var orderHours = parseInt(orderHour.val());
-                var orderMenutes = parseInt(orderMinute.val());
-                var branchClosingHour = branchClosing;
-                var branchClosingMinuteTemp = branchClosingMinute;
-
-                if (orderMinute.val() > (branchClosingMinute - 30)) {
-                  branchClosingHour = branchClosingHour - 1;
-                  branchClosingMinuteTemp = (branchClosingMinuteTemp + 60);
-                }
-
-                if (orderHours == branchClosingHour && orderMinute.val() <= (branchClosingMinuteTemp - 30)) {
-                  $("#stepTwoSubmitForm").submit();
-                  $("#cityBranchListModal").modal().hide();
-
-                } else if (orderHours < branchClosingHour) {
-                  $("#stepTwoSubmitForm").submit();
-                  $("#cityBranchListModal").modal().hide();
-
-                } else {
-                  alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm and 30 minutes before " +
-                    branchName + " Branch closing time.");
-                }
-              }
-            }
-          } else {
-
-            var date = new Date();
-
-            var orderHours = date.getHours();
-            var orderMinutes = date.getMinutes();
-            var meridiem = date.getHours() > 11 ? 'PM' : 'AM';
-
-
-
-            if (meridiem == 'AM') {
-              if (branchOpening == 12) {
-                // check if the branch opening is 12pm
-                if ((orderHours == branchOpening || (orderHours > (branchOpening / 12) && orderHours < 12))) {
-                  // send the form
-                  $("#stepTwoSubmitForm").submit();
-                  $("#cityBranchListModal").modal().hide();
-                } else {
-                  // show error notification here
-                  alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm in " + branchName + " Branch.");
-                }
-
-              } else {
-                if (orderHours >= branchOpening) {
-                  $("#stepTwoSubmitForm").submit();
-                  $("#cityBranchListModal").modal().hide();
-
-                } else {
-                  // show some error notification here
-                  alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm in " + branchName + " Branch.");
-                }
-              }
-            } else {
-              // PM code here
-              if (branchClosing == 12) {
-                if (orderHours == branchClosing) {
-                  if (orderMinutes <= (branchClosingMinute - 30)) {
-                    $("#stepTwoSubmitForm").submit();
-                    $("#cityBranchListModal").modal().hide();
-
-                  } else {
-                    alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm and 30 minutes before " +
-                      branchName + " Branch closing time.");
-                  }
-
-                } else {
-                  alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm in " + branchName + " Branch.");
-                }
-              } else {
-
-                var branchClosingHour = branchClosing;
-                var branchClosingMinuteTemp = branchClosingMinute;
-                var orderHourz = (orderHours - 12);
-
-                if (orderMinutes > (branchClosingMinute - 30)) {
-                  branchClosingHour = branchClosingHour - 1;
-                  branchClosingMinuteTemp = (branchClosingMinuteTemp + 60);
-                }
-
-                if (orderHourz == branchClosingHour && orderMinutes <= (branchClosingMinuteTemp - 30)) {
-                  $("#stepTwoSubmitForm").submit();
-                  $("#cityBranchListModal").modal().hide();
-
-                } else if (orderHourz < branchClosingHour) {
-                  $("#stepTwoSubmitForm").submit();
-                  $("#cityBranchListModal").modal().hide();
-
-                } else {
-                  alert("Sorry, you can only order between " + branchOpening + ":" + formatStringNumber(branchOpeningMinute) + " am to " + branchClosing + ":" + formatStringNumber(branchClosingMinute) + " pm and 30 minutes before " +
-                    branchName + " Branch closing time.");
-                }
-              }
-
-            }
-            /*
-
-                            $("#stepTwoSubmitForm").submit();
-                            $("#cityBranchListModal").modal().hide();*/
-          }
-        }
-      });
-
-      // validate new order information
-      $("#btnValidateNewInformation").click(function() {
-
-
-        var city = $("#city");
-        var newOrderFirstName = $("#newOrderFirstName");
-        var newOrderLastName = $("#newOrderLastName");
-        var newOrderAddress1 = $("#newOrderAddress1");
-        var newOrderStreetAddress = $("#newOrderStreetAddress");
-        var newOrderAddress3 = $("#newOrderAddress3");
-        var newOrderCountry = $("#newOrderCountry");
-        var newOrderProvince = $("#newOrderProvince");
-        var newOrderContactNumber = $("#newOrderContactNumber");
-        var storeDineinForPickup = $("#storeDineinForPickup");
-
-        var orderDate = $("#date");
-        var orderHour = $("#hourOrder");
-        var orderMinute = $("#minuteOrder");
-        var meridiemOrder = $("#meridiemOrder");
-
-        var errorMessage = "Please fill up the following field below";
-
-        /*else if (isFieldEmptyAndEnabled(newOrderFirstName)
-                || isFieldEmptyAndEnabled(newOrderLastName) || isFieldEmptyAndEnabled(newOrderAddress1)
-                || isFieldEmptyAndEnabled(newOrderStreetAddress || isFieldEmptyAndEnabled(newOrderAddress3)
-                || isFieldEmptyAndEnabled(newOrderCountry) || isFieldEmptyAndEnabled(newOrderProvince)
-                || isFieldEmptyAndEnabled(city) || isFieldEmptyAndEnabled(newOrderContactNumber))) */
-        if (!isDineinOrForPickup()) {
-
-          if (!isSameAsBillingCheck()) {
-            newCity();
-          } else {
-            same();
-          }
-
-          if (!isSameAsBillingCheck()) {
-
-            /* remove all error field */
-            removeFieldError(newOrderFirstName, newOrderLastName, newOrderAddress1,
-              newOrderStreetAddress, newOrderAddress3, newOrderProvince, newOrderCountry,
-              city, newOrderContactNumber);
-
-            setIndicator(false);
-
-            if (isEmptyField(newOrderFirstName)) {
-              errorMessage += "\n First Name";
-              showErrorField(newOrderFirstName);
-            }
-
-            if (isEmptyField(newOrderLastName)) {
-              errorMessage += "\n Last Name";
-              showErrorField(newOrderLastName);
-            }
-
-            if (isEmptyField(newOrderAddress1)) {
-              errorMessage += "\n Floor/ Dept. / Building";
-              showErrorField(newOrderAddress1);
-            }
-
-            if (isEmptyField(newOrderStreetAddress)) {
-              errorMessage += "\n Street";
-              showErrorField(newOrderStreetAddress);
-            }
-
-            if (isEmptyField(newOrderAddress3)) {
-              errorMessage += "\n Area / Subdivision / Barangay / District";
-              showErrorField(newOrderAddress3);
-            }
-
-            if (isEmptyField(newOrderCountry)) {
-              errorMessage += "\n Country";
-              showErrorField(newOrderCountry);
-            }
-
-            if (isEmptyField(newOrderProvince)) {
-              errorMessage += "\n Province";
-              showErrorField(newOrderProvince);
-            }
-
-            if (isEmptyField(city)) {
-              errorMessage += "\n City";
-              showErrorField(city);
-            }
-
-            if (isEmptyField(newOrderContactNumber)) {
-              errorMessage += "\n Contact Number";
-              showErrorField(newOrderContactNumber);
-            }
-
-            if (!isImmediateDeliver()) {
-              if (isEmptyField(orderDate) || isEmptyField(orderHour) || isEmptyField(orderMinute)) {
-                showErrorField(orderDate);
-              } else {
-                removeErrorField(orderDate);
-                if (!getIndicator())
-                  $("#cityBranchListModal").modal();
-              }
-            } else {
-              if (!getIndicator()) {
-                $("#cityBranchListModal").modal();
-              } else {
-                alert(errorMessage);
-              }
-            }
-            /*if (!getIndicator()) {
-                    $("#cityBranchListModal").modal();
-            } */
-
-          } else {
-            if (!isImmediateDeliver()) {
-
-              if (isEmptyField(orderDate) || isEmptyField(orderHour) || isEmptyField(orderMinute)) {
-                showErrorField(orderDate);
-              } else {
-                $("#cityBranchListModal").modal();
-              }
-
-            } else {
-              $("#cityBranchListModal").modal();
-            }
-
-          }
-        } else {
-
-          removeErrorField(orderDate);
-          removeErrorField(storeDineinForPickup);
-
-          isValid = true;
-          // validator if Dine-in/For Pick up is checked
-          if (isEmptyField(orderDate) || isEmptyField(orderHour) || isEmptyField(orderMinute)) {
-            showErrorField(orderDate);
-            isValid = false;
-          }
-
-          if (isEmptyField(storeDineinForPickup)) {
-            showErrorField(storeDineinForPickup);
-            isValid = false;
-          }
-
-          if (isValid == true) {
-            $("#stepTwoSubmitForm").submit();
-          } else {
-            alert("field is required");
-          }
-        }
-
-        /*else {
-
-            alert("item is immediateDeliver");
-            // $("#cityBranchListModal").modal(); // show modal
-        }*/
-
-      });
-
-      $("#btnCloseDialog").click(function() {
-        // get back the settin when button was click
-        dataModalDisplaySetting();
-      });
-
-      function dataModalDisplaySetting() {
-        document.getElementById("modal-content-body").style.visibility = "visible";
-        document.getElementById("submitBrachForm").style.visibility = "visible";
-        document.getElementById("modal-content-body").style.height = "300px";
-        document.getElementById("btnCloseDialog").value = "Close";
-      }
-
-      function emptyDataModalDisplaySetting() {
-        document.getElementById("modal-content-body").style.visibility = "hidden";
-        document.getElementById("submitBrachForm").style.visibility = "hidden";
-        document.getElementById("modal-content-body").style.height = "35px";
-        document.getElementById("btnCloseDialog").value = "Ok";
-        document.getElementById("head").innerHTML = "Sorry, there's no available Wendy's <br> delivery store near you.";
-      }
-
-      function removeFieldError(newOrderFirstName, newOrderLastName, newOrderAddress1, newOrderStreetAddress, newOrderAddress3, newOrderProvince, newOrderCountry, city, newOrderContactNumber) {
-        // remove all error field before checking
-        removeErrorField(newOrderFirstName);
-        removeErrorField(newOrderLastName);
-        removeErrorField(newOrderAddress1);
-        removeErrorField(newOrderAddress3);
-        removeErrorField(newOrderStreetAddress);
-        removeErrorField(newOrderProvince);
-        removeErrorField(newOrderCountry);
-        removeErrorField(city);
-        removeErrorField(newOrderContactNumber);
-      }
-
-
-      function isFieldEmptyAndEnabled(elementVar) {
-        if (!isDisabledField(elementVar) || isEmptyField(elementVar)) {
-          return true;
-        }
-
-        return false;
-      }
-
-      function isImmediateDeliver() {
-        /*check if immediate delivery is checked, if checked return true otherwise false*/
-        if ($('#immediateDeliver').is(':checked')) {
-          $('#immediateDeliver').closest('.form-group').removeClass('has-error');
-          return true;
-        }
-
-        return false;
-      }
-
-      function isDineinOrForPickup() {
-        if ($('#dineInForPickUp').is(':checked')) {
-          return true;
-        }
-
-        return false;
-      }
-
-      function isSameAsBillingCheck() {
-        if ($("#sameAddress").is(":checked")) {
-          return true;
-        }
-
-        return false;
-      }
-
-      function isDisabledField(elementVar) {
-        /*checked if the element pass is disabled or not, if field is disabled return true otherwise false*/
-        if (elementVar.is(":disabled")) {
-          return true;
-        }
-
-        return false;
-      }
-
-      function formatStringNumber(number) {
-        // format the string to make it look like two decimal number
-        if (number.toString().length > 1)
-          return number;
-
-        return '0' + number;
-      }
-
-      function showErrorField(elementVar) {
-        /* mark field as error field */
-        setIndicator(true);
-        elementVar.closest('.form-group').removeClass('has-success').addClass('has-error');
-      }
-
-      function removeErrorField(elementVar) {
-        /*remove error field*/
-        elementVar.closest('.form-group').removeClass('has-error');
-      }
-
-      function isEmptyField(elementVar) {
-        /* check if the element field is empty or not, if field is empty return true else return false*/
-        if ($.trim(elementVar.val()).length <= 0 || elementVar.val() === 'undefined' || elementVar.val() == '' || elementVar.val == null) {
-          setIndicator(true);
-          return true;
-        }
-
-        return false;
-      }
-
-      function setIndicator(indicator) {
-        this.indicator = indicator;
-      }
-
-      function getIndicator() {
-        return this.indicator;
-      }
-
-    });
-  </script>
-
 </head>
 
 <body>
-
-
-
+  <input type="hidden" id="siteNo" value="{{$siteNo}}">
   <div id="sideNavigation" class="hidden-lg hidden-md">
     <div class="shadow"></div>
     <div id="navigation">
 
       <ul>
-        <li><a href="{{route('home')}}">Home</a></li>
+        <li><a href="{{route('home',['siteNo'=>$siteNo])}}">Home</a></li>
         <li><a href="#">About Us</a></li>
         <li><a href="#">What's New</a></li>
         <li><a href="#">Stores</a></li>
         <li><a href="#">Careers</a></li>
-        <li><a href="{{route('delivery')}}" class="active">Food Delivery</a></li>
+        <li><a href="{{route('delivery',['siteNo'=>$siteNo])}}" class="active">Food Delivery</a></li>
         <li><a href="#">Contact Us</a></li>
       </ul>
 
@@ -589,7 +88,7 @@
               <div class="text-right marginTop">
 
                 <div class="colorRed">Philippine local time</div>
-                <div class="time">09:12pm | Nov 1, 2017</div>
+                <div class="time">{{date("h:ia")}} | {{date("M n, Y")}}</div>
 
               </div>
 
@@ -607,12 +106,12 @@
                 <div id="navigation">
 
                   <ul>
-                    <li><a href="{{route('home')}}">Home</a></li>
+                    <li><a href="{{route('home',['siteNo'=>$siteNo])}}">Home</a></li>
                     <li><a href="#">About Us</a></li>
                     <li><a href="#">What's New</a></li>
                     <li><a href="#">Stores</a></li>
                     <li><a href="#">Careers</a></li>
-                    <li><a href="{{route('delivery')}}" class="active">Food Delivery</a></li>
+                    <li><a href="{{route('delivery',['siteNo'=>$siteNo])}}" class="active">Food Delivery</a></li>
                     <li><a href="#">Contact Us</a></li>
                   </ul>
 
@@ -773,7 +272,14 @@
   <script type="text/javascript" src="{{asset('vendors/camera/camera.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/library/library.js')}}"></script>
   <script type="text/javascript" src="{{asset('vendors/bootstrap/js/html5shiv.js')}}"></script>
+  @if($siteNo == 1 || $siteNo == 4 || $siteNo == 6 || $siteNo == 8)
+  <script type="text/javascript" src="{{asset('js/dropdown-cart.js')}}"></script>
+  @else
   <script type="text/javascript" src="{{asset('js/cart.js')}}"></script>
+  @endif
+  @if($siteNo != 0)
+    <script type="text/javascript" src="{{asset('js/item-combo-toggle.js')}}"></script>
+  @endif
 
 
 </strong></strong><iframe id="avdfi_1509541953903" src="javascript:'<html><body style=&quot;background:transparent&quot;></body></html>'" height="0" width="0" marginheight="0" marginwidth="0" frameborder="0" scrolling="no" style="width: 0px; height: 0px; border: 0px none; background: none;"></iframe>

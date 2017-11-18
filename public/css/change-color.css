@@ -1,0 +1,6 @@
+#immediate-delivery-label, #delivery-date-time, .red{
+  color: red;
+}
+.red::placeholder{
+  color: #e5676b;
+}

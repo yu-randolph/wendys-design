@@ -27,7 +27,7 @@
         <div class="form-group">
           <label class="col-sm-4 control-label">Delivery Date / Time</label>
           <div class="col-sm-8">
-            <p class="form-control-static">Today (Wed, November 8, 2017 Philippine local date &amp; time) delivery time will depend on your location and will start upon receipt of a confirmation call from the Wendy's branch.</p>
+            <p class="form-control-static">Today ({{date("D, F j, Y")}} Philippine local date &amp; time) delivery time will depend on your location and will start upon receipt of a confirmation call from the Wendy's branch.</p>
           </div>
         </div>
 
@@ -61,24 +61,24 @@
           <label class="col-sm-4 control-label">* Preferred Date and Time</label>
           <div class="col-sm-8">
             <p class="form-control-static" style="display: block;">
-              <label class="checkbox">
+              <label class="checkbox" id="immediate-delivery-label">
                 <input type="checkbox" id="immediateDeliver" value="immediate" name="immediate">
               Immediate Delivery</label>
             </p>
             <div class="clearfix"></div>
 
-            <div class="row preferredDateAndTime" style="display: block;">
+            <div class="row preferredDateAndTime" id="delivery-date-time" style="display: block;">
               <div class="col-sm-4">
-                <input type="text" class="form-control datepicker hasDatepicker required" name="date" id="date" placeholder="Date" value="" autocomplete="off">
+                <input type="text" class="form-control datepicker hasDatepicker required red" name="date" id="date" placeholder="Date" value="" autocomplete="off">
               </div>
               <div class="clearfix marginBottom"></div>
               <div class="col-xs-4">
-                <select name="hour" id="hourOrder" class="form-control required">
+                <select name="hour" id="hourOrder" class="form-control required red">
                               <option value="">-- Hour --</option>
                                 <option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>                            </select>
               </div>
               <div class="col-xs-4">
-                <select name="minute" id="minuteOrder" class="form-control required">
+                <select name="minute" id="minuteOrder" class="form-control required red">
                               <option value="">-- Minute --</option>
                                 <option value="15">15</option>
                                 <option value="30">30</option>
@@ -86,7 +86,7 @@
                                                             </select>
               </div>
               <div class="col-xs-4">
-                <select name="meridiem" id="meridiemOrder" class="form-control">
+                <select name="meridiem" id="meridiemOrder" class="form-control red">
                                 <option value="AM">AM</option>
                                 <option value="PM">PM</option>
                             </select>
@@ -99,37 +99,37 @@
           <div class="form-group">
             <label class="col-sm-4 control-label">* First Name</label>
             <div class="col-sm-8">
-              <input type="text" id="newOrderFirstName" class="form-control required" value="Randolph" name="firstName" disabled="" autocomplete="off">
+              <input type="text" id="newOrderFirstName" class="form-control required" value="Jim" name="firstName" disabled="" autocomplete="off">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-4 control-label">Middle Name</label>
             <div class="col-sm-8">
-              <input type="text" id="newOrderMiddleName" class="form-control required" value="Malveda" name="middleName" disabled="" autocomplete="off">
+              <input type="text" id="newOrderMiddleName" class="form-control required" value="M" name="middleName" disabled="" autocomplete="off">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-4 control-label">* Last Name</label>
             <div class="col-sm-8">
-              <input type="text" id="newOrderLastName" class="form-control required" value="Yu" name="lastName" disabled="" autocomplete="off">
+              <input type="text" id="newOrderLastName" class="form-control required" value="Hopper" name="lastName" disabled="" autocomplete="off">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-4 control-label">* Floor / Dept. / Building</label>
             <div class="col-sm-8">
-              <input type="text" id="newOrderAddress1" class="form-control required" value="162" name="address1" disabled="" autocomplete="off">
+              <input type="text" id="newOrderAddress1" class="form-control required" value="1" name="address1" disabled="" autocomplete="off">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-4 control-label">* Street</label>
             <div class="col-sm-8">
-              <input type="text" id="newOrderStreetAddress" class="form-control required" value="Sarangani St." name="address2" disabled="" autocomplete="off">
+              <input type="text" id="newOrderStreetAddress" class="form-control required" value="S St." name="address2" disabled="" autocomplete="off">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-4 control-label">* Area / Subdivision / Barangay / District</label>
             <div class="col-sm-8">
-              <input type="text" id="newOrderAddress3" class="form-control required" value="Ayala Alabang Village" name="address3" disabled="" autocomplete="off">
+              <input type="text" id="newOrderAddress3" class="form-control required" value="AAV" name="address3" disabled="" autocomplete="off">
             </div>
           </div>
           <div class="form-group">
@@ -158,7 +158,7 @@
           <div class="form-group">
             <label class="col-sm-4 control-label">* Contact No.</label>
             <div class="col-sm-8">
-              <input type="text" id="newOrderContactNumber" class="form-control digits required" value="09178955038" name="contactNumber" disabled="" autocomplete="off">
+              <input type="text" id="newOrderContactNumber" class="form-control digits required" value="09123456789" name="contactNumber" disabled="" autocomplete="off">
             </div>
           </div>
           <div class="form-group">
@@ -170,13 +170,13 @@
         </div>
         <div class="form-group">
           <div class="col-sm-12 text-right">
-            <a href="{{route('categories')}}"><button type="button" class="btn btn-warning">
+            <a href="{{route('categories',['siteNo' => $siteNo])}}"><button type="button" class="btn btn-warning">
                       Previous
                     </button></a>
-            <a href="{{route('checkout',['stepNo' => 3])}}"><button type="button" class="btn btn-warning" id="btnValidateNewInformation" <!--="" data-toggle="modal" data-target="#myModal" --="">&gt;
+            <a href="{{route('checkout',['stepNo' => 3,'siteNo' => $siteNo])}}"><button type="button" class="btn btn-warning" id="btnValidateNewInformation" <!--="" data-toggle="modal" data-target="#myModal" --="">&gt;
                       Continue
                     </button></a>
-            <a href="{{route('categories')}}"><button type="button" class="btn btn-warning" onclick="location.href='https://wendys.com.ph/delivery/'">
+            <a href="{{route('categories',['siteNo' => $siteNo])}}"><button type="button" class="btn btn-warning" onclick="">
                       Cancel Order
                     </button></a>
           </div>

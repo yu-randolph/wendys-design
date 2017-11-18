@@ -15,7 +15,7 @@ class CategoriesTableSeeder extends Seeder
     {
         //Start of Iced Tea
         $category = new Category;
-        $category->name = "SIGNATURE ICED TEA";
+        $category->name = "Signature Iced Tea";
         $category->image = "iced-tea.jpg";
         $category->save();
 
@@ -72,7 +72,7 @@ class CategoriesTableSeeder extends Seeder
 
         //Start Bundle
         $category = new Category;
-        $category->name = "BUNDLE MEAL";
+        $category->name = "Bundle Meal";
         $category->image = "bundle-meal.jpg";
         $category->save();
 
@@ -136,7 +136,7 @@ class CategoriesTableSeeder extends Seeder
 
         //Start Baconator
         $category = new Category;
-        $category->name = "BACONATOR";
+        $category->name = "Baconator";
         $category->image = "smokehouse-barbeque-nator.jpg";
         $category->save();
 
@@ -200,7 +200,7 @@ class CategoriesTableSeeder extends Seeder
 
         //START HOT N' JUICY
         $category = new Category;
-        $category->name = "HOT N' JUICY CHEESEBURGER";
+        $category->name = "Hot N' Juicy Cheeseburger";
         $category->image = "deluxe-sandwiches.jpg";
         $category->save();
 
@@ -284,7 +284,7 @@ class CategoriesTableSeeder extends Seeder
 
         //Start Hearty
         $category = new Category;
-        $category->name = "HEARTY SANDWICHES";
+        $category->name = "Hearty Sandwiches";
         $category->image = "hearty-sandwich.jpg";
         $category->save();
 
@@ -386,7 +386,7 @@ class CategoriesTableSeeder extends Seeder
 
         //Start Meaty Chicken
         $category = new Category;
-        $category->name = "MEATY CHICKEN";
+        $category->name = "Meaty Chicken";
         $category->image = "meaty-chicken.jpg";
         $category->save();
 
@@ -476,7 +476,7 @@ class CategoriesTableSeeder extends Seeder
 
         //Start Real Meal Deals
         $category = new Category;
-        $category->name = "REAL MEAL DEALS";
+        $category->name = "Real Meal Deals";
         $category->image = "rmd-category.jpg";
         $category->save();
 
@@ -547,7 +547,7 @@ class CategoriesTableSeeder extends Seeder
         $item = new Item;
         $item->name = "Sesame Garlic Chicken";
         $item->description = "Crunchy chicken bites with savory Sesame Garlic Sauce, paired with freshly cooked rice.";
-        $item->image = "2pcs-fried-chicken-with-rice.jpg";
+        $item->image = "rmd-sesame-garlic-chicken.jpg";
         $item->category_id = $category->id;
         $item->save();
 
@@ -556,11 +556,24 @@ class CategoriesTableSeeder extends Seeder
         $meal->price = 55.00;
         $meal->item_id = $item->id;
         $meal->save();
+
+        $item = new Item;
+        $item->name = "BBQ Burger";
+        $item->description = " ";
+        $item->image = "bbq-burger.jpg";
+        $item->category_id = $category->id;
+        $item->save();
+
+        $meal = new Meal;
+        $meal->label = "Ala-carte";
+        $meal->price = 49.00;
+        $meal->item_id = $item->id;
+        $meal->save();
         //End Real Meal Deals
 
         //Start Salads
         $category = new Category;
-        $category->name = "GREEN SALADS";
+        $category->name = "Green Salads";
         $category->image = "green-salads.jpg";
         $category->save();
 
@@ -643,7 +656,7 @@ class CategoriesTableSeeder extends Seeder
 
         //Start Frosty
         $category = new Category;
-        $category->name = "FROSTY";
+        $category->name = "Frosty";
         $category->image = "dairy-frosty.jpg";
         $category->save();
 
@@ -751,7 +764,7 @@ class CategoriesTableSeeder extends Seeder
 
         //Start Signature Sides
         $category = new Category;
-        $category->name = "SIGNATURE SIDES";
+        $category->name = "Signature Sides";
         $category->image = "fries.jpg";
         $category->save();
 
@@ -796,7 +809,7 @@ class CategoriesTableSeeder extends Seeder
         $item = new Item;
         $item->name = "Baked Potato Cheese & Cheese";
         $item->description = "Dig into this famous and delicious Wendy’s classic! The bursting flavor of hot baked potato topped with cheese and cheese.";
-        $item->image = "iced-tea-classic.jpg";
+        $item->image = "baked-potato.jpg";
         $item->category_id = $category->id;
         $item->save();
 
@@ -809,13 +822,13 @@ class CategoriesTableSeeder extends Seeder
 
         //Breakfast not included
         $category = new Category;
-        $category->name = "BREAKFAST*";
+        $category->name = "Breakfast*";
         $category->image = "wendys-breakfast.jpg";
         $category->save();
 
         //Start Beverages
         $category = new Category;
-        $category->name = "BEVERAGES";
+        $category->name = "Beverages";
         $category->image = "beverages.jpg";
         $category->save();
 

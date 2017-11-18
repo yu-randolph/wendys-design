@@ -6,7 +6,10 @@
       <ul>
         @foreach ($categories as $category)
           <li>
-            <a href="{{$category->name == "BREAKFAST *" ? '#' :route('items',['categoryId' => $category->id])}}">
+            <a  @if($category->id == $item->category_id)
+                class="active"
+                @endif
+                href="{{$category->name == "Breakfast*" ? '#' :route('items',['categoryId' => $category->id,'siteNo' => $siteNo])}}">
                             {{$category->name}}
             </a>
           </li>
@@ -65,7 +68,7 @@
                             <input type="hidden" name="addtitionalCharge" value="0">
                             <input type="hidden" id="itemImage" value="{{$item->image}}">
                             <input type="hidden" id="itemId" value="{{$item->id}}">
-
+                            <div class="alert alert-danger" id="add-error" style="white-space: pre-line; display:none"></div>
                             <div class="row">
 
                               <div class="col-sm-6">
@@ -89,12 +92,56 @@
                             <p>&nbsp;</p>
 
                           </form>
-
+                          @if($item->meals->count() == 1)
+                          <div class="quickTotal">Total: PHP <span id="priceNumber">{{$item->meals->first()->price}}.00</span></div>
+                          @else
                           <div class="quickTotal">Total: PHP <span id="priceNumber">0.00</span></div>
+                          @endif
                           <p>&nbsp;</p>
 
                           <form name="additionalFieldsForm">
+                            @if($siteNo == 1 || $siteNo == 4 || $siteNo == 6 || $siteNo == 8)
+                              @if($item->meals->count() > 1)
+                              <div class="form-group">
+                                <label for="exampleFormControlSelect1">
+                                  @if($item->category->id == 1 || ($item->category->id <= 8 && $item->category->id >= 10)|| $item->category->id == 12)
+                                    Size
+                                  @else
+                                    Meal
+                                  @endif
+                                </label>
+                                <select class="form-control" id="choose-meal">
+                                    <option value="0">--Select a Meal--</option>
+                                  @foreach ($item->meals as $meal)
+                                    <option data-price="{{$meal->price}}" data-id="{{$meal->id}}" data-label="{{$meal->label}}">{{$meal->label . " PHP " . $meal->price}}</option>
+                                  @endforeach
+                                </select>
+                              </div>
+                              @if($item->category->id>1 && $item->category->id<8 && !($item->category_id == 2 && $siteNo == 0))
+                                <div class="form-group" id="choose-size"><label>Choose a Combo Size</label>
+                                  <select class="form-control" id="size-dropdown">
+                                    <option value="0">--Select a Size--</option>
+                                    <option value="regular">Regular</option>
+                                    <option value="large">Large</option>
+                                    <option value="biggie">Biggie</option>
+                                  </select>
+                                </div>
+                              @endif
+                              @if(($item->category->id == 12 && $item->id == 40) || ($item->category->id > 1 && $item->category->id < 8))
+                              <div class="form-group" id="choose-drink"><label>Choose a Drink</label>
+                                <select class="form-control" id="drink-dropdown">
+                                  <option value="0">--Select a Drink--</option>
+                                  <option value="coke">Coke</option>
+                                  <option value="coke-zero">Coke Zero</option>
+                                  <option value="minute-maid">Minute Maid</option><option value="regular">Regular</option>
+                                  <option value="royal">Royal</option>
+                                  <option value="sprite">Sprite</option>
+                                </select>
+                              </div>
+                              @endif
+                            @endif
 
+                            @else
                               <fieldset class="additionalField " data-attribute="Option">
                                 <legend>
                                   @if($item->category->id == 1 || ($item->category->id <= 8 && $item->category->id >= 10)|| $item->category->id == 12)
@@ -106,7 +153,7 @@
                                 @foreach ($item->meals as $meal)
                                   <div>
                                     <label class="radio">
-                                      <input type="radio"@if($meal->id == $item->meals[0]->id) checked @endif name="option1" value="{{$meal->price}}" data-price="{{$meal->price}}" data-id="{{$meal->id}}" data-label="{{$meal->label}}">
+                                      <input type="radio" name="option1" value="{{$meal->price}}" data-price="{{$meal->price}}" data-id="{{$meal->id}}" data-label="{{$meal->label}}">
                                       {{$meal->label . " PHP " . $meal->price}}
                                     </label>
                                   </div>
@@ -114,7 +161,69 @@
 
                                 <input type="hidden" name="totalAdditionalFields" value="{{$item->meals->count()}}">
                               </fieldset>
-
+                              @if($item->category->id>1 && $item->category->id<8 && !($item->category_id == 2 && $siteNo == 0) && $siteNo != 0)
+                              <fieldset class="additionalField " id="choose-size" data-attribute="Option" style="margin-top:10px;">
+                                <legend>
+                                  Combo Size
+                                </legend>
+                                  <div>
+                                    <label class="radio">
+                                      <input type="radio" name="option2" value="regular">
+                                      Regular
+                                    </label>
+                                  </div>
+                                  <div>
+                                    <label class="radio">
+                                      <input type="radio" name="option2" value="large">
+                                      Large
+                                    </label>
+                                  </div>
+                                  <div>
+                                    <label class="radio">
+                                      <input type="radio" name="option2" value="biggie">
+                                      Biggie
+                                    </label>
+                                  </div>
+                              </fieldset>
+                            @endif
+                            @if( ($item->category->id == 12 && $item->id == 40) || ($item->category->id > 1 && $item->category->id < 8) && $siteNo != 0)
+                              <fieldset class="additionalField " id="choose-drink" data-attribute="Option" style="margin-top:10px;">
+                                <legend>
+                                  Drink
+                                </legend>
+                                  <div>
+                                    <label class="radio">
+                                      <input type="radio" name="option3" value="coke">
+                                      Coke
+                                    </label>
+                                  </div>
+                                  <div>
+                                    <label class="radio">
+                                      <input type="radio" name="option3" value="coke-zero">
+                                      Coke Zero
+                                    </label>
+                                  </div>
+                                  <div>
+                                    <label class="radio">
+                                      <input type="radio" name="option3" value="minute-maid">
+                                      Minute Maid
+                                    </label>
+                                  </div>
+                                  <div>
+                                    <label class="radio">
+                                      <input type="radio" name="option3" value="royal">
+                                      Royal
+                                    </label>
+                                  </div>
+                                  <div>
+                                    <label class="radio">
+                                      <input type="radio" name="option3" value="Sprite">
+                                      Sprite
+                                    </label>
+                                  </div>
+                              </fieldset>
+                              @endif
+                            @endif
                           </form>
 
                         </div>

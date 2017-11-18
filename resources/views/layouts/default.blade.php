@@ -34,17 +34,18 @@
 </head>
 
 <body>
+  <input type="hidden" id="siteNo" value="{{$siteNo}}">
   <div id="sideNavigation" class="hidden-lg hidden-md">
     <div class="shadow"></div>
     <div id="navigation" class="animate">
 
       <ul>
-        <li><a href="{{route('home')}}" class="active">Home</a></li>
+        <li><a href="{{route('home',['siteNo' => $siteNo])}}" class="active">Home</a></li>
         <li><a href="#">About Us</a></li>
         <li><a href="#">What's New</a></li>
         <li><a href="#">Stores</a></li>
         <li><a href="#">Careers</a></li>
-        <li><a href="{{route('delivery')}}">Food Delivery</a></li>
+        <li><a href="{{route('delivery',['siteNo' => $siteNo])}}">Food Delivery</a></li>
         <li><a href="#">Contact Us</a></li>
       </ul>
 
@@ -97,7 +98,7 @@
               <div class="text-right marginTop">
 
                 <div class="colorRed">Philippine local time</div>
-                <div class="time">08:19pm | Nov 1, 2017</div>
+                <div class="time">{{date("h:ia")}} | {{date("M n, Y")}}</div>
 
               </div>
 
@@ -115,12 +116,12 @@
                 <div id="navigation" class="">
 
                   <ul>
-                    <li><a href="{{route('home')}}" class="active">Home</a></li>
+                    <li><a href="{{route('home',['siteNo' => $siteNo])}}" class="active">Home</a></li>
                     <li><a href="#">About Us</a></li>
                     <li><a href="#">What's New</a></li>
                     <li><a href="#">Stores</a></li>
                     <li><a href="#">Careers</a></li>
-                    <li><a href="{{route('delivery')}}">Food Delivery</a></li>
+                    <li><a href="{{route('delivery',['siteNo' => $siteNo])}}">Food Delivery</a></li>
                     <li><a href="#">Contact Us</a></li>
                   </ul>
 
@@ -193,17 +194,17 @@
       <table cellpadding="0">
         <tbody>
           <tr>
-            <td width="30%"><a href="https://wendys.com.ph/whats-new/">
+            <td width="30%"><a href="#">
 			  		<img src="{{asset('images/newBtn.png')}}">
 			  		<p style="color:#ffcc00;">What's New</p>
 			  		</a>
             </td>
-            <td width="30%"><a href="https://wendys.com.ph/delivery/">
+            <td width="30%"><a href="{{route('delivery',['siteNo' => $siteNo])}}">
 			 		<img src="{{asset('images/deliveryBtn.png')}}">
 			 		<p style="color:#ffcc00;">Food Delivery</p>
 			 		</a>
             </td>
-            <td width="30%"><a href="https://wendys.com.ph/stores/">
+            <td width="30%"><a href="#">
 			  		<img src="{{asset('images/storeIcon.png')}}">
 			  		<p style="color:#ffcc00;">Store</p>
 			  		</a>

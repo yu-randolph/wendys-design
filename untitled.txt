@@ -1,0 +1,21 @@
+Things to do for Wendy's:
+- Update Cart button
+- Error message for no radio button
+
+Things for the runs:
+- Meal selection radios -> dropdown; font color -> delivery time;
+- Font Size +2 -> delivery time;
+
+Classification of Food:
+- BBQ Burger // not available from site
+- Baconator mushroom melt; id:6; category:3 //baconator alt_category:5 //hearty sandwiches
+- 5 for 125; id:22; category:6; //meaty chicken alt_category:7 //rmd
+- Spicy Chicken Fillet; id:16; category:5;//hearty sandwiches alt_category:7 //rmd
+- Homestyle Chicken Fillet; id:17; category:5;//hearty sandwiches alt_category:7 //rmd
+
+Keyword Bias:
+- 5 for 125; id:22; category:6; //meaty chicken alt_category:2 //bundle meal
+- Bacon Mushroom Melt; id:10; category:4 // hot 'n juicy alt_category:3 //baconator
+- Sesame Garlic Chicken (Salpicao replacement); id:27; category:7//rmd alt_category: 6 //meaty chicken
+- Spicy Chicken Fillet; id:16; category:5;//hearty sandwiches alt_category: 6 //meaty chicken
+- Homestyle Chicken Fillet; id:17; category:5;//hearty sandwiches alt_category: 6 //meaty chicken

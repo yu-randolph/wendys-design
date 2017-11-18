@@ -19,25 +19,25 @@
               <div class="form-group">
                 <label class="col-sm-4 control-label">Name</label>
                 <div class="col-sm-8">
-                  <p class="form-control-static">Randolph Malveda Yu</p>
+                  <p class="form-control-static">Jim Hopper</p>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-4 control-label">Floor / Dept. / Building</label>
                 <div class="col-sm-8">
-                  <p class="form-control-static">162</p>
+                  <p class="form-control-static">1</p>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-4 control-label">Street</label>
                 <div class="col-sm-8">
-                  <p class="form-control-static">Sarangani St.</p>
+                  <p class="form-control-static">S St.</p>
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-4 control-label">Area / Subdivision / Barangay / District</label>
                 <div class="col-sm-8">
-                  <p class="form-control-static">Ayala Alabang Village</p>
+                  <p class="form-control-static">AAV</p>
                 </div>
               </div>
               <div class="form-group">
@@ -61,7 +61,7 @@
               <div class="form-group">
                 <label class="col-sm-4 control-label">Contact No.</label>
                 <div class="col-sm-8">
-                  <p class="form-control-static">09178955038</p>
+                  <p class="form-control-static">09123456789</p>
                 </div>
               </div>
 
@@ -238,11 +238,11 @@
             <button type="button" class="btn btn-warning">
                 Previous
               </button>
-            <button type="submit" name="step-4" class="displayNone"></button>
-            <button type="button" class="btn btn-warning" name="placeOrder" id="btn-order" disabled="">
+            <a href="{{route('checkout',['stepNo' => 3,'siteNo' => $siteNo])}}"><button type="submit" name="step-4" class="displayNone"></button></a>
+            <a href="{{route('checkout',['stepNo' => 5,'siteNo' => $siteNo])}}"><button type="button" class="btn btn-warning" name="placeOrder" id="btn-order" disabled="">
                 Submit Order
-              </button>
-            <button type="button" class="btn btn-warning" onclick="location.href='https://wendys.com.ph/delivery/'">
+              </button></a>
+            <button type="button" class="btn btn-warning" onclick="">
                 Cancel Order
               </button>
           </div>
